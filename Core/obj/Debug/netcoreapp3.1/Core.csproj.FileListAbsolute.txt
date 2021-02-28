@@ -1,9 +1,0 @@
-C:\Users\Emir\Desktop\Projects\skinet\Core\bin\Debug\netcoreapp3.1\Core.deps.json
-C:\Users\Emir\Desktop\Projects\skinet\Core\bin\Debug\netcoreapp3.1\Core.dll
-C:\Users\Emir\Desktop\Projects\skinet\Core\bin\Debug\netcoreapp3.1\Core.pdb
-C:\Users\Emir\Desktop\Projects\skinet\Core\obj\Debug\netcoreapp3.1\Core.csprojAssemblyReference.cache
-C:\Users\Emir\Desktop\Projects\skinet\Core\obj\Debug\netcoreapp3.1\Core.AssemblyInfoInputs.cache
-C:\Users\Emir\Desktop\Projects\skinet\Core\obj\Debug\netcoreapp3.1\Core.AssemblyInfo.cs
-C:\Users\Emir\Desktop\Projects\skinet\Core\obj\Debug\netcoreapp3.1\Core.csproj.CoreCompileInputs.cache
-C:\Users\Emir\Desktop\Projects\skinet\Core\obj\Debug\netcoreapp3.1\Core.dll
-C:\Users\Emir\Desktop\Projects\skinet\Core\obj\Debug\netcoreapp3.1\Core.pdb
