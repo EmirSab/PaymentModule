@@ -59,3 +59,9 @@ C:\Users\Emir\Desktop\Projects\skinet\API\bin\Debug\netcoreapp3.1\runtimes\win-x
 C:\Users\Emir\Desktop\Projects\skinet\API\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 C:\Users\Emir\Desktop\Projects\skinet\API\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\Emir\Desktop\Projects\skinet\API\obj\Debug\netcoreapp3.1\API.csproj.CopyComplete
+C:\Users\Emir\Desktop\Projects\skinet\API\bin\Debug\netcoreapp3.1\Humanizer.dll
+C:\Users\Emir\Desktop\Projects\skinet\API\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\Emir\Desktop\Projects\skinet\API\bin\Debug\netcoreapp3.1\Core.dll
+C:\Users\Emir\Desktop\Projects\skinet\API\bin\Debug\netcoreapp3.1\Infrastructure.dll
+C:\Users\Emir\Desktop\Projects\skinet\API\bin\Debug\netcoreapp3.1\Infrastructure.pdb
+C:\Users\Emir\Desktop\Projects\skinet\API\bin\Debug\netcoreapp3.1\Core.pdb

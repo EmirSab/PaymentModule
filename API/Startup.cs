@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using API.Data;
+using Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -29,7 +29,9 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            #region 2.12.1 Dodati Context ->
+            #region 2.12.1 Dodati Context -> ProductsController
+            // Add migration after and update database and db update
+            // Add PAckage Microsoft.EntityFrameworkCore.Design
             services.AddDbContext<StoreContext>(x => x.UseSqlServer(_config.GetConnectionString("DefaultConnection")));
             #endregion
         }
@@ -43,8 +45,7 @@ namespace API
             }
 
             app.UseHttpsRedirection();
-  app.UseStaticFiles();
-    app.UseCookiePolicy();
+
             app.UseRouting();
 
             app.UseAuthorization();
