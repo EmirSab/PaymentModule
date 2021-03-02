@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,7 +29,12 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            #region 3.22.2 Adding repository ->ProductRepository
+            services.AddScoped<IProductRepository, ProductRepository>();
+            #endregion
+
             services.AddControllers();
+            
             #region 2.12.1 Dodati Context -> ProductsController
             // Add migration after and update database and db update
             // Add PAckage Microsoft.EntityFrameworkCore.Design
