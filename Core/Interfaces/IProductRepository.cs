@@ -12,5 +12,10 @@ namespace Core.Interfaces
 
         Task<IReadOnlyList<Product>> GetProductsAsync();
         #endregion
+
+        #region 3.29 Adding more methods -> ProductRepository
+        Task<IReadOnlyList<ProductBrand>> GetProductBrandsAsync();
+        Task<IReadOnlyList<ProductType>> GetProductTypesAsync();
+        #endregion
     }
 }

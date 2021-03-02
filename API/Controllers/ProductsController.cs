@@ -38,5 +38,19 @@ namespace API.Controllers
         }
         #endregion
         #endregion
+
+        #region 3.29.2 Adding methods in controller -> ProductRepository
+        [HttpGet("brands")]
+        public async Task<ActionResult<IReadOnlyList<ProductBrand>>> GetProductBrands()
+        {
+            return Ok(await _repo.GetProductBrandsAsync());
+        }
+
+        [HttpGet("types")]
+        public async Task<ActionResult<IReadOnlyList<ProductType>>> GetProductTypes()
+        {
+            return Ok(await _repo.GetProductTypesAsync());
+        }
+        #endregion
     }
 }
