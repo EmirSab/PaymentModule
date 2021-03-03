@@ -35,7 +35,7 @@ namespace Infrastructure.Data
             .FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        // 3.30 Add Include to bring back type and brand
+        // 3.30 Add Include to bring back type and brand ->IGenericRepository
         public async Task<IReadOnlyList<Product>> GetProductsAsync()
         {
             return await _context.Products

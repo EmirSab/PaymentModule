@@ -33,6 +33,10 @@ namespace API
             services.AddScoped<IProductRepository, ProductRepository>();
             #endregion
 
+            #region 4.33.1 Adding Generic Repo -> GenericRepository
+            services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
+            #endregion
+
             services.AddControllers();
             
             #region 2.12.1 Dodati Context -> ProductsController
