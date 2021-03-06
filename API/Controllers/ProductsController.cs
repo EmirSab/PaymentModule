@@ -6,6 +6,7 @@ using Core.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Core.Interfaces;
+using Core.Specifications;
 
 namespace API.Controllers
 {
@@ -30,24 +31,29 @@ namespace API.Controllers
             _productTypeRepo = productTypeRepo;
             _productBrandRepo = productBrandRepo;
             _productRepo = productRepo;
-
         }
+
+        // 4.39.1 Modifying methods ->ProductsWithTypesAndBrandSpecification
         [HttpGet]
         public async Task<ActionResult<List<Product>>> GetProducts()
         {
-            var products = await _productRepo.ListAllAsync();
+            var spec = new ProductsWithTypesAndBrandsSpecification();
+            var products = await _productRepo.ListAsync(spec);
             return Ok(products);
         }
 
+        // 4.40.1 Modify method ->
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
-            return await _productRepo.GetByIdAsync(id);
+            var spec = new ProductsWithTypesAndBrandsSpecification(id);
+            return await _productRepo.GetEntityWithSpec(spec);
         }
         #endregion
         #endregion
 
         #region 3.29.2 Adding methods in controller -> ProductRepository
+        // 4.34.1 Prepraviti metode za generic repo ->ISpecification
         [HttpGet("brands")]
         public async Task<ActionResult<IReadOnlyList<ProductBrand>>> GetProductBrands()
         {
