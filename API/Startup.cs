@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Helpers;
 using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
@@ -37,6 +38,10 @@ namespace API
             services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
             #endregion
 
+            #region 4.43.1 Add Automapper as a service ->ProductController
+            services.AddAutoMapper(typeof(MappingProfiles));
+            #endregion
+
             services.AddControllers();
             
             #region 2.12.1 Dodati Context -> ProductsController
@@ -57,6 +62,10 @@ namespace API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            #region 4.46.1 Add static files
+            app.UseStaticFiles();
+            #endregion
 
             app.UseAuthorization();
 
