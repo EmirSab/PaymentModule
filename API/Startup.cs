@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Errors;
 using API.Helpers;
+using API.Middleware;
 using Core.Interfaces;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
@@ -49,15 +51,37 @@ namespace API
             // Add PAckage Microsoft.EntityFrameworkCore.Design
             services.AddDbContext<StoreContext>(x => x.UseSqlServer(_config.GetConnectionString("DefaultConnection")));
             #endregion
+
+            #region 5.53.1 Overriding ApiControlle tag ->
+            services.Configure<ApiBehaviorOptions>(options =>{
+                options.InvalidModelStateResponseFactory = actionContext => {
+                    var errors = actionContext.ModelState.Where(e => e.Value.Errors.Count > 0)
+                    .SelectMany(x => x.Value.Errors).Select(x => x.ErrorMessage).ToArray();
+
+                    var errorResponse = new ApiValidationErrorResponse
+                    {
+                        Errors = errors
+                    };
+                    return new BadRequestObjectResult(errorResponse);
+                };
+            });
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            #region 5.52.2 Change generic exception with custom -> Errors/ApiValidationErrorResponse
+            /*if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }
+            }*/
+            app.UseMiddleware<ExceptionMiddleware>();
+            #endregion
+
+            #region 5.51.1 Add part for exeptions ->ApiExeption
+            app.UseStatusCodePagesWithReExecute("/errors/{0}");
+            #endregion
 
             app.UseHttpsRedirection();
 

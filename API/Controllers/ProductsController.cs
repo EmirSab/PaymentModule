@@ -12,9 +12,8 @@ using AutoMapper;
 
 namespace API.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class ProductsController : ControllerBase
+
+    public class ProductsController : BaseApiController
     {
         #region 2.9 Add Controller and two methods -> Entities
         #region 2.15 Adding logic for getting the data, change the two methods ->IProductRepository
