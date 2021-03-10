@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.Errors;
+using API.Extensions;
 using API.Helpers;
 using API.Middleware;
 using Core.Interfaces;
@@ -16,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 
 namespace API
 {
@@ -33,11 +35,11 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             #region 3.22.2 Adding repository ->ProductRepository
-            services.AddScoped<IProductRepository, ProductRepository>();
+            //services.AddScoped<IProductRepository, ProductRepository>();
             #endregion
 
             #region 4.33.1 Adding Generic Repo -> GenericRepository
-            services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
+            //services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
             #endregion
 
             #region 4.43.1 Add Automapper as a service ->ProductController
@@ -53,7 +55,7 @@ namespace API
             #endregion
 
             #region 5.53.1 Overriding ApiControlle tag ->
-            services.Configure<ApiBehaviorOptions>(options =>{
+            /*services.Configure<ApiBehaviorOptions>(options =>{
                 options.InvalidModelStateResponseFactory = actionContext => {
                     var errors = actionContext.ModelState.Where(e => e.Value.Errors.Count > 0)
                     .SelectMany(x => x.Value.Errors).Select(x => x.ErrorMessage).ToArray();
@@ -64,8 +66,21 @@ namespace API
                     };
                     return new BadRequestObjectResult(errorResponse);
                 };
-            });
+            });*/
             #endregion
+
+            #region 5.56.1 Add services -> SwaggerServiceExtensions
+            services.AddApplicationServices();
+            #endregion
+
+            #region 5.54 Add Swagger config -> ErrorController
+            /*services.AddSwaggerGen(c => {
+                c.SwaggerDoc("v1", new OpenApiInfo {Title = "SkiNet API", Version="v1" });
+            });*/
+            #endregion
+
+            // 5.56.3 Include swagger
+            services.AddSwaggerDocumentation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -92,6 +107,15 @@ namespace API
             #endregion
 
             app.UseAuthorization();
+
+            #region 5.54 Add Swagger config
+            /*app.UseSwagger();
+            app.UseSwaggerUI(c => {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "SkiNet API v1");
+            });*/
+            #endregion
+            // 5.56.3 Include swagger
+            app.UseSwaggerDocumentation();
 
             app.UseEndpoints(endpoints =>
             {

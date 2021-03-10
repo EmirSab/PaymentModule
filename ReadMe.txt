@@ -12,3 +12,5 @@ Commands:
 Packages:
 -dotnet add package Microsoft.EntityFrameworkCore
 -dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+-dotnet add package Swashbuckle.AspNetCore.SwaggerGen
+-dotnet add package Swashbuckle.AspNetCore.SwaggerUi
