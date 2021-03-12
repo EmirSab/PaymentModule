@@ -17,19 +17,23 @@ namespace Core.Specifications
 
         #region 6.60 Add parametar for sort in the constructor ->ProductsController
         // 6.62.1 Add part with base() i dodati brandid and typeid ->ISpecification
-        public ProductsWithTypesAndBrandsSpecification(string sort, int? brandId, int? typeId) : 
+        // 6.64.2 Add ProductSpecParams and pagging
+        public ProductsWithTypesAndBrandsSpecification(ProductSpecParams productParams) : 
             base(x => 
-            (!brandId.HasValue || x.ProductBrandId == brandId) && 
-            (!typeId.HasValue || x.ProductTypeId == typeId)
+            (!productParams.BrandId.HasValue || x.ProductBrandId == productParams.BrandId) && 
+            (!productParams.TypeId.HasValue || x.ProductTypeId == productParams.TypeId)
             )
         {
             AddInclude(x => x.ProductType);
             AddInclude(x => x.ProductBrand);
             AddOrderBy(x => x.Name);
+            #region 6.64.2 add paging
+            ApplyPaging(productParams.PageSize * (productParams.PageIndex - 1), productParams.PageSize);
+            #endregion
             // chacking the value of the sort it will be by name or price
-            if (!string.IsNullOrEmpty(sort))
+            if (!string.IsNullOrEmpty(productParams.Sort))
             {
-                switch (sort)
+                switch (productParams.Sort)
                 {
                     case "priceAsc":
                         AddOrderBy(p => p.Price);

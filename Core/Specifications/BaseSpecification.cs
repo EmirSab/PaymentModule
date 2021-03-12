@@ -43,13 +43,14 @@ namespace Core.Specifications
         #region 6.63.1 Implement properties for paggination ->SpecificationEvaluator
         public int Take { get; private set; }
         public int Skip { get; private set; }
-        public bool IsPagingEnabled { get; private set; }
+
+        public bool IsPaggingEnabled { get; private set; }
 
         protected void ApplyPaging(int skip, int take)
         {
             Skip = skip;
             Take = take;
-            IsPagingEnabled = true;
+            IsPaggingEnabled = true;
         }
         #endregion
 

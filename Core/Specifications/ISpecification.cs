@@ -18,7 +18,7 @@ namespace Core.Specifications
         #region 6.63 Add properties for paggination -> BaseSpecification
         int Take { get; }
         int Skip { get; }
-        bool IspaggingEnabled { get; }
+        bool IsPaggingEnabled { get; }
         #endregion
     }
     #endregion

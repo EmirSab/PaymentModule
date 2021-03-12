@@ -29,8 +29,8 @@ namespace Infrastructure
             }
             #endregion
 
-            #region 6.63.2 Add condition for pagging ->
-            if (spec.IspaggingEnabled)
+            #region 6.63.2 Add condition for pagging -> ProductSpecParams
+            if (spec.IsPaggingEnabled)
             {
                 query = query.Skip(spec.Skip).Take(spec.Take);
             }
