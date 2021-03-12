@@ -114,7 +114,7 @@ namespace API
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "SkiNet API v1");
             });*/
             #endregion
-            // 5.56.3 Include swagger
+            // 5.56.3 Include swagger ->ISpecification
             app.UseSwaggerDocumentation();
 
             app.UseEndpoints(endpoints =>

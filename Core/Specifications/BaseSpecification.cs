@@ -24,6 +24,35 @@ namespace Core.Specifications
             Includes.Add(includeExpression);
         }
 
+        #region 6.51.1 Implement two new methods ->SpecificationEvaluators
+        public Expression<Func<T, object>> OrderBy { get; private set; }
+
+        public Expression<Func<T, object>> OrderByDescending { get; private set; }
+
+        protected void AddOrderBy(Expression<Func<T, object>> orderByExpression)
+        {
+            OrderBy = orderByExpression;
+        }
+
+        protected void AddOrderByDescending(Expression<Func<T, object>> orderByDescExpression)
+        {
+            OrderByDescending = orderByDescExpression;
+        }
+        #endregion
+
+        #region 6.63.1 Implement properties for paggination ->SpecificationEvaluator
+        public int Take { get; private set; }
+        public int Skip { get; private set; }
+        public bool IsPagingEnabled { get; private set; }
+
+        protected void ApplyPaging(int skip, int take)
+        {
+            Skip = skip;
+            Take = take;
+            IsPagingEnabled = true;
+        }
+        #endregion
+
     }
     #endregion
 }

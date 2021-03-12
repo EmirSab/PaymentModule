@@ -17,6 +17,25 @@ namespace Infrastructure
                 query = query.Where(spec.Criteria);
             }
 
+            #region 6.59.2 Check if there is orderby ->ProductsController
+            if (spec.OrderBy != null)
+            {
+                query = query.OrderBy(spec.OrderBy);
+            }
+
+            if (spec.OrderByDescending != null)
+            {
+                query = query.OrderByDescending(spec.OrderByDescending);
+            }
+            #endregion
+
+            #region 6.63.2 Add condition for pagging ->
+            if (spec.IspaggingEnabled)
+            {
+                query = query.Skip(spec.Skip).Take(spec.Take);
+            }
+            #endregion
+
             query = spec.Includes.Aggregate(query, (current, include) => current.Include(include));
 
             return query;

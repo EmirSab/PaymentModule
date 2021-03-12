@@ -40,11 +40,13 @@ namespace API.Controllers
 
         // 4.39.1 Modifying methods ->ProductsWithTypesAndBrandSpecification
         // 4.42.1 Modify GetProduct and GetProducts to add dto ->MappingProfiles
-
+        // 6.59.3 Add string sort in the GetProducts() for sorting the products ->ProductsWithTypesAndBrandsSpecification
+        // 6.62 Add parametar for search int bradnid, typeid ->ProductsWithTypesAndBrandsSpecification
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts()
+        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts(string sort, int? brandId,
+            int? typeId)
         {
-            var spec = new ProductsWithTypesAndBrandsSpecification();
+            var spec = new ProductsWithTypesAndBrandsSpecification(sort, brandId, typeId);
             var products = await _productRepo.ListAsync(spec);
 
             #region 4.44.1 Modify the method to use Mapper -> appsettings.Development.json
