@@ -17,9 +17,13 @@ namespace Core.Specifications
 
         #region 6.60 Add parametar for sort in the constructor ->ProductsController
         // 6.62.1 Add part with base() i dodati brandid and typeid ->ISpecification
-        // 6.64.2 Add ProductSpecParams and pagging
+        // 6.64.2 Add ProductSpecParams and pagging -> Helpers/Pagination
         public ProductsWithTypesAndBrandsSpecification(ProductSpecParams productParams) : 
-            base(x => 
+            base(x =>
+            #region 6.66.1 check if the string has a value ->ProductWithFiltersForCountSpecification
+            (string.IsNullOrEmpty(productParams.Search) || x.Name.ToLower().Contains(productParams.Search))
+            &&
+            #endregion
             (!productParams.BrandId.HasValue || x.ProductBrandId == productParams.BrandId) && 
             (!productParams.TypeId.HasValue || x.ProductTypeId == productParams.TypeId)
             )

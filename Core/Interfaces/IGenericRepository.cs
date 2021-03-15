@@ -14,7 +14,11 @@ namespace Core.Interfaces
          #region 4.37.1 Add two methods that take specification as parametar ->GenericRepository
           Task<T> GetEntityWithSpec(ISpecification<T> spec);
           Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec);
-         #endregion
+        #endregion
+
+        #region 6.65.1 Method for counting specification -> GenericRepository
+        Task<int> CountAsync(ISpecification<T> spec);
+        #endregion
     }
 
     #endregion

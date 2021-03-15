@@ -23,5 +23,14 @@ namespace Core.Specifications
         public int? TypeId { get; set; }
         public string Sort { get; set; }
         #endregion
+
+        #region 6.66 Add Search params -> ProductsWithTypesAndBrandsSpecification
+        private string _search;
+        public string Search
+        {
+            get => _search;
+            set => _search = value.ToLower();
+        }
+        #endregion
     }
 }

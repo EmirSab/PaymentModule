@@ -11,6 +11,7 @@ using API.Dtos;
 using AutoMapper;
 using API.Errors;
 using Microsoft.AspNetCore.Http;
+using API.Helpers;
 
 namespace API.Controllers
 {
@@ -40,18 +41,26 @@ namespace API.Controllers
 
         // 4.39.1 Modifying methods ->ProductsWithTypesAndBrandSpecification
         // 4.42.1 Modify GetProduct and GetProducts to add dto ->MappingProfiles
-        // 6.59.3 Add string sort in the GetProducts() for sorting the products ->ProductsWithTypesAndBrandsSpecification
+        // 6.59.3 Add string sort in the GetProducts() for sorting the products -> ProductsWithTypesAndBrandsSpecification
         // 6.62 Add parametar for search int bradnid, typeid ->ProductsWithTypesAndBrandsSpecification
         // 6.64.1 Change vars in method for ProductSpecParams ->ProductsWithTypesAndBrandsSpecification
+        // 6.65.4 Adding pagination ->ProductSpecParams
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<ProductToReturnDto>>> GetProducts([FromQuery]ProductSpecParams productParams)
+        public async Task<ActionResult<Pagination<ProductToReturnDto>>> GetProducts([FromQuery]ProductSpecParams productParams)
         {
             var spec = new ProductsWithTypesAndBrandsSpecification(productParams);
+
+            // 6.65.4 counting spec var
+            var countSpec = new ProductWithFiltersForCountSpecification(productParams);
+            var totalItems = await _productRepo.CountAsync(countSpec);
+            //end
+
             var products = await _productRepo.ListAsync(spec);
 
+            var data = _mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturnDto>>(products);
+
             #region 4.44.1 Modify the method to use Mapper -> appsettings.Development.json
-            return Ok(_mapper.Map<IReadOnlyList<Product>, 
-            IReadOnlyList<ProductToReturnDto>>(products));
+            return Ok(new Pagination<ProductToReturnDto>(productParams.PageIndex, productParams.PageSize, totalItems, data));
             #endregion
             /*return products.Select(product => new ProductToReturnDto
             {

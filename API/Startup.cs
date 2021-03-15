@@ -81,6 +81,16 @@ namespace API
 
             // 5.56.3 Include swagger
             services.AddSwaggerDocumentation();
+
+            #region 6.67 Enable CORS -> app.component.html
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200");
+                });
+            });
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -106,6 +116,9 @@ namespace API
             app.UseStaticFiles();
             #endregion
 
+            #region 6.67
+            app.UseCors("CorsPolicy");
+            #endregion
             app.UseAuthorization();
 
             #region 5.54 Add Swagger config
