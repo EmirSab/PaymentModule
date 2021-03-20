@@ -2,11 +2,6 @@
 <app-nav-bar></app-nav-bar>
 <!--8.79.1 Add html ->app.module.ts-->
 <div class="container" style="margin-top: 140px;">
-    <h1>Welcome to {{title}}</h1>
     <!--8.80.1 Add code for showing products -> -->
-    <ul>
-        <li class="list-unstyled" *ngFor="let product of products">
-            {{product.name}}
-        </li>
-    </ul>
+    <app-shop></app-shop>
 </div>
