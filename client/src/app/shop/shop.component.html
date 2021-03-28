@@ -53,16 +53,20 @@
             There are <strong>0</strong> results for this filter
           </span>
         </header> -->
-        <!--9.101.4 add paging hader and pass parametres-->
+        <!--9.101.4 add paging hader and pass parametres ->shared.module.ts-->
         <app-paging-header>
           [totalCount]="totalCount"
           [pageSize]="this.shopParams.pageSize"
           [pageNumber]="this.shopParams.pageNumber"
         </app-paging-header>
         <div class="form-inline mt-2">
-          <input type="text" style="width: 300px;" placeholder="Search" class="form-control mr-2">
-          <button class="btn btn-outline-primary my-2">Search</button>
-          <button class="btn btn-outline-success ml-2 my-2">Reset</button>
+          <!-- 9.103 add template reference in #search -> shop.componenet.ts
+              9.103.2 add onClick() ->shop.service.ts
+              9.103.4 add keyup event for enter functionality -> shop.componenet.ts
+          -->
+          <input (keyup)="onSearch()" type="text" style="width: 300px;" #search placeholder="Search" class="form-control mr-2">
+          <button (click)="onSearch()" class="btn btn-outline-primary my-2">Search</button>
+          <button (click)="onReset()" class="btn btn-outline-success ml-2 my-2">Reset</button>
         </div>
       </div>
 
@@ -75,7 +79,7 @@
       <!--9.98.4 change pagination html -> shop.service.ts-->
       <!--9.99.2 add html for paging -> -->
       <div class="d-flex justify-content-center" *ngIf="totalCount > 0">
-      <pagination 
+      <!--<pagination 
       [boundaryLinks]="true" 
       [totalItems]="this.totalCount"
       (pageChanged)="onPageChanged($event)"
@@ -84,7 +88,13 @@
       nextText="&rsaquo;"
       firstText="&laquo;" 
       lastText="&raquo;">
-      </pagination>
+      </pagination> -->
+      <!--9.102.3 add app-pager tag ->-->
+      <app-pager
+      [pageSize]="shopParams.pageSize"
+      [totalCount]="totalCount"
+      (pageChanged)="onPageChanged($event)"
+      ></app-pager>
       </div>
     </section>
   </div>

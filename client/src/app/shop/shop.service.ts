@@ -35,6 +35,12 @@ export class ShopService {
       params = params.append('sort', shopParams.sort);
     }
 
+    //#region 9.103.3 add conditions for search -> shop.html
+    if(shopParams.search) {
+      params = params.append('search', shopParams.search);
+    }
+    //#endregion
+
     //#region 9.99
     params = params.append('sort', shopParams.sort);
     params = params.append('pageIndex', shopParams.pageNumber.toString());
