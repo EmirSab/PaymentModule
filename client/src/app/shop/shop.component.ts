@@ -109,7 +109,7 @@ export class ShopComponent implements OnInit {
 
   //#region 9.99.1 add onpagechanged ->shop.component.html
   onPageChanged(event: any) {
-    // 9.104.1 if in order not to send two api calls when filter is changed
+    // 9.104.1 if in order not to send two api calls when filter is changed ->app.routing.module.ts
     if (this.shopParams.pageNumber !== event) {
       this.shopParams.pageNumber = event;
       this.getProducts();

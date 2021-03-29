@@ -7,7 +7,9 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CoreModule } from './core/core.module';
 import { ShopModule } from './shop/shop.module';
+import { HomeModule } from './home/home.module';
 //8.80 Add HttpClientModule ->app.component.ts
+// 10.108.2 Declare home module -> app.component.html
 @NgModule({
   declarations: [
     AppComponent
@@ -18,7 +20,8 @@ import { ShopModule } from './shop/shop.module';
     BrowserAnimationsModule,
     HttpClientModule,
     CoreModule,
-    ShopModule
+    ShopModule,
+    HomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
