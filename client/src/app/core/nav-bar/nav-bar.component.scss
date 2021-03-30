@@ -13,3 +13,25 @@
     top: -12px;
     right: 32px;
 }
+/*
+1.110 Add css for nav-bar elements ->nav.bar,html
+*/
+a {
+    text-decoration: none;
+    color: #343a40;
+
+    &.active {
+        color: orange;
+    }
+}
+
+/*
+1.110.2 Add css for logo ->
+*/
+.logo {
+    cursor: pointer;
+
+    &:focus {
+        outline: none;
+    }
+}
