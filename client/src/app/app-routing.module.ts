@@ -5,10 +5,10 @@ import { ProductDetailsComponent } from './shop/product-details/product-details.
 import { ShopComponent } from './shop/shop.component';
 
 // 10.108 Add routes for components -> home.module.ts
+// 10.113 Copy routes shop and shop id -> shop-routing.module.ts
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'shop', component: ShopComponent},
-  {path: 'shop/:id', component: ProductDetailsComponent},
+  {path: 'shop', loadChildren: () => import('./shop/shop.module').then(mod => mod.ShopModule)},
   {path: '**', redirectTo: '', pathMatch: 'full'}
 ];
 
