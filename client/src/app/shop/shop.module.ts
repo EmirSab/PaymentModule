@@ -7,7 +7,7 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { ShopRoutingModule } from './shop-routing.module';
 
 // 9.97.1 Add shared module -> shop.component.html
-// 10.113.2 Import shop-routing.module
+// 10.113.2 Import shop-routing.module -> app.routing.module
 
 @NgModule({
   declarations: [ShopComponent, ProductItemComponent, ProductDetailsComponent],

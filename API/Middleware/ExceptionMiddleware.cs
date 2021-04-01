@@ -12,15 +12,14 @@ namespace API.Middleware
     public class ExceptionMiddleware
     {
         #region 5.52.1 Add middleware for exceptions ->Startup.cs
-        private readonly IHostEnvironment _env;
-        private readonly ILogger<ExceptionMiddleware> _logger;
         private readonly RequestDelegate _next;
-        public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger,
-        IHostEnvironment env)
+        private readonly ILogger<ExceptionMiddleware> _logger;
+        private readonly IHostEnvironment _env;
+        public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger, IHostEnvironment env)
         {
-            _next = next;
-            _logger = logger;
             _env = env;
+            _logger = logger;
+            _next = next;
         }
 
         public async Task InvokeAsync(HttpContext context)
@@ -38,11 +37,14 @@ namespace API.Middleware
                 context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
                 // pisanje responsa
-                var response = _env.IsDevelopment() ? new ApiExeption((int)HttpStatusCode.InternalServerError,
-                ex.Message, ex.StackTrace.ToString()) : new ApiExeption((int)HttpStatusCode.InternalServerError);
+                var response = _env.IsDevelopment()
+                    ? new ApiExeption((int)HttpStatusCode.InternalServerError, ex.Message, ex.StackTrace.ToString())
+                    : new ApiExeption((int)HttpStatusCode.InternalServerError, ex.Message, ex.StackTrace.ToString());
 
-                var options = new JsonSerializerOptions{PropertyNamingPolicy = JsonNamingPolicy.CamelCase};
+                var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+
                 var json = JsonSerializer.Serialize(response, options);
+
                 await context.Response.WriteAsync(json);
             }
         }
