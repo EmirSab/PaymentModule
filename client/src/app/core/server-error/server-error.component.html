@@ -1,4 +1,21 @@
 <!--11.117 Add test html for component -> not-found.html-->
+<!--11.121.2 add more html ->-->
 <div class="container mt-5">
-    <h1>Internal Sever error</h1>
+    <h4>Internal Sever error - refrshing the page will make exeption disappear</h4>
+    <ng-container *ngIf="error">
+        <h5 class="text-danger"> Error: {{error.message}}</h5>
+        <p class="font-wright-bold">Note: if you are seeing this then Angular is probably not responsable</p>
+        <ol>
+            <li>Open chrome dev tools</li>
+            <li>Inspect the network tab</li>
+            <li>Check the failing request</li>
+            <li>Examine this requrst URL - make sure this is correct</li>
+            <li>Reproduce the error in postman - if we the same response in Postman, then the issue is 
+                not with Angular
+            </li>
+        </ol>
+        <p>Following is the stack trace - this is where your investigation should start!</p>
+        <code class="mt-5" style="background-color: whitesmoke;">{{error.details}}</code>
+    </ng-container>
+
 </div>

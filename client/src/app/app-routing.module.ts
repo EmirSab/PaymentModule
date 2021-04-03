@@ -8,7 +8,7 @@ import { HomeComponent } from './home/home.component';
 // 10.108 Add routes for components -> home.module.ts
 // 10.113 Copy routes shop and shop id -> shop-routing.module.ts
 //11.116.1 Add routes for errors ->nav-bar.html
-// 11.117.1 Add routes for errors ->
+// 11.117.1 Add routes for errors -> interceptors/error.interceptor.ts
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'test-error', component: TestErrorComponent},

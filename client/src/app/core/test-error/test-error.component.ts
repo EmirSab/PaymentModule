@@ -11,6 +11,9 @@ export class TestErrorComponent implements OnInit {
   // 11.116.3 Add logic for errorr testing ->test-error.html
   baseUrl = environment.apiUrl;
 
+  //11.120.1 add validation error variable -> test-error.html
+  validationErrors: any;
+
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
@@ -46,6 +49,8 @@ export class TestErrorComponent implements OnInit {
       console.log(response);
     }, error => {
       console.log(error);
+      //11.120.1
+      this.validationErrors = error.errors;
     });
   }
 //#endregion
