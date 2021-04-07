@@ -11,9 +11,10 @@ export class SectionHeaderComponent implements OnInit {
 
   //12.127 add breadcrumb ->seaction-header.html
   breadcrumb$: Observable<any[]>;
+
   constructor(private bcService: BreadcrumbService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.breadcrumb$ = this.bcService.breadcrumbs$;
   }
 

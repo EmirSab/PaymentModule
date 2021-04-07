@@ -12,7 +12,8 @@ import { ShopService } from './shop.service';
 })
 export class ShopComponent implements OnInit {
   // 9.103.1 add View child in order to access #search ->shop.html
-  @ViewChild('search', { static: true }) searchTerm: ElementRef;
+  //12.131.1 Change true into false -> product-details.ts
+  @ViewChild('search', { static: false }) searchTerm: ElementRef;
   // 9.89 Add ShopService logic -> shop.component.html
   products: IProduct[];
 
