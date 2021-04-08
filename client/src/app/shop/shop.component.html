@@ -6,15 +6,15 @@
 </ul>-->
 
 <!--9.90 -> add better html ->product-tem.html-->
-<div class="container mt-5">
+<div class="container mt-3">
   <div class="row">
     
     <section class="col-3">
       <!--12.131 add ng if only to show if there is types and brands -->
       <ng-container *ngIf="types && brands">
-        <h5 class="text-warning ml-3">Sort</h5>
+        <h5 class="text-warning ml-3 mt-4 mb-3">Sort</h5>
         <!--9.96.2 Add sorting html ->shared.module.ts-->
-        <select class="custom-select mb-3" (change)="onSortSelected($event.target.value)">
+        <select class="custom-select mb-4" (change)="onSortSelected($event.target.value)">
           <option *ngFor="let sort of sortOptions" [value]="sort.value">
             {{sort.name}}
           </option>
@@ -63,11 +63,14 @@
           [pageSize]="this.shopParams.pageSize"
           [pageNumber]="this.shopParams.pageNumber"
         </app-paging-header>
-        <!--12.131 add ng if only to show if there is types and brands ->shop.component.ts -->
-        <div class="form-inline mt-2" *ngIf="products">
+        <!--12.131 add ng if only to show if there is types and brands ->shop.component.ts 
+        12.132.5 Delete mt at search ->
+      -->
+        <div class="form-inline" *ngIf="products">
           <!-- 9.103 add template reference in #search -> shop.componenet.ts
               9.103.2 add onClick() ->shop.service.ts
               9.103.4 add keyup event for enter functionality -> shop.componenet.ts
+              
           -->
           <input (keyup)="onSearch()" type="text" style="width: 300px;" #search placeholder="Search"
             class="form-control mr-2">
