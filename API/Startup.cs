@@ -18,6 +18,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using StackExchange.Redis;
 
 namespace API
 {
@@ -38,6 +39,10 @@ namespace API
             //services.AddScoped<IProductRepository, ProductRepository>();
             #endregion
 
+            #region 13.137.2 Add new repository to startup.cs ->
+            services.AddScoped<IBasketRepository, BasketRepository>();
+            #endregion
+
             #region 4.33.1 Adding Generic Repo -> GenericRepository
             //services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
             #endregion
@@ -52,6 +57,14 @@ namespace API
             // Add migration after and update database and db update
             // Add PAckage Microsoft.EntityFrameworkCore.Design
             services.AddDbContext<StoreContext>(x => x.UseSqlServer(_config.GetConnectionString("DefaultConnection")));
+            #endregion
+
+            #region 13.135.1 Add Redis as singleton -> appsettings.development.json
+            services.AddSingleton<ConnectionMultiplexer>(c => {
+                var configuration = ConfigurationOptions.Parse(_config
+                    .GetConnectionString("Redis"), true);
+                return ConnectionMultiplexer.Connect(configuration);
+            });
             #endregion
 
             #region 5.53.1 Overriding ApiControlle tag ->
