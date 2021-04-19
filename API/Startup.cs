@@ -39,7 +39,7 @@ namespace API
             //services.AddScoped<IProductRepository, ProductRepository>();
             #endregion
 
-            #region 13.137.2 Add new repository to startup.cs ->
+            #region 13.137.2 Add new repository to startup.cs -> BasketRepository
             services.AddScoped<IBasketRepository, BasketRepository>();
             #endregion
 
@@ -60,7 +60,7 @@ namespace API
             #endregion
 
             #region 13.135.1 Add Redis as singleton -> appsettings.development.json
-            services.AddSingleton<ConnectionMultiplexer>(c => {
+            services.AddSingleton<IConnectionMultiplexer>(c => {
                 var configuration = ConfigurationOptions.Parse(_config
                     .GetConnectionString("Redis"), true);
                 return ConnectionMultiplexer.Connect(configuration);
