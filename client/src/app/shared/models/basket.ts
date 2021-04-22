@@ -1,5 +1,5 @@
 //#region 14.146 Add properties to the basket model, install uuid for 
-// unique id generation (npm install uuid)->
+// unique id generation (npm install uuid)-> basket.service.ts
 import {v4 as uuidv4} from 'uuid';
 export interface IBasket {
     id: string;
