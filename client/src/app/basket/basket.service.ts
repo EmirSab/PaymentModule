@@ -21,12 +21,14 @@ export class BasketService {
     return this.http.get(this.baseUrl + 'basket?id=' + id).
     pipe(map((basket: IBasket) => {
       this.basketSource.next(basket);
+      console.log(this.getCurrentBasketValue());
     }));
   }
 
   setBasket(basket: IBasket) {
     return this.http.post(this.baseUrl + 'basket', basket). subscribe((response: IBasket) => {
       this.basketSource.next(response);
+      console.log(response);
     }, error => {
       console.log(error);
     });
@@ -36,7 +38,7 @@ export class BasketService {
     return this.basketSource.value;
   }
 
-  //#region 14.148 Add products to the basket
+  //#region 14.148 Add products to the basket -> product.item.ts
   addItemToBasket(item: IProduct, quantity = 1) {
     const itemToAdd: IBasketItem = this.mapProductItemToBasketItem(item, quantity);
     const basket = this.getCurrentBasketValue() ?? this.createBasket();
@@ -45,9 +47,8 @@ export class BasketService {
   }
 
   // method if item is already added to increase the quantity
-  private addOrUpdateItem(items: IBasketItem[], itemToAdd: IBasketItem, quantity: number):
-    IBasketItem[] {
-      const index = items.findIndex(i => i.id === itemToAdd.id);
+  private addOrUpdateItem(items: IBasketItem[], itemToAdd: IBasketItem, quantity: number): IBasketItem[] {
+    const index = items.findIndex(i => i.id === itemToAdd.id);
       // item is not found
       if (index === -1) {
         itemToAdd.quantity = quantity;
