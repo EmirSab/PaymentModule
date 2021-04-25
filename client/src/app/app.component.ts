@@ -12,7 +12,7 @@ export class AppComponent implements OnInit{
   title = 'Skinet';
   // 8.84.1 Dodati product interface ->pagination.ts
 
- // 14.150 Getting the basket if there is one getting the basket service ->
+ // 14.150 Getting the basket if there is one getting the basket service -> nav-bar.ts
   constructor(private basketService: BasketService) {}
 
   // 8.84.3 Add IPagination ->
