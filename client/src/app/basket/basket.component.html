@@ -1,8 +1,9 @@
-<!--14.151.3 Add html to show items ->-->
+<!--14.151.3 Add html to show items -> basket.ts-->
 <div class="container mt-5">
   <div *ngIf="(basket$ | async) === null">
     <p>There are no items in your basket</p>
   </div>
+
   <div *ngIf="basket$ | async">
     <div class="pb-5">
       <div class="container">
@@ -33,7 +34,8 @@
                   <tr *ngFor="let item of (basket$ | async).items">
                     <th scope="row">
                       <div class="p-2">
-                        <img src="{{item.pictureUrl}}" alt="{{item.productName}}" class="img-fluid" style="max-height: 50px;">
+                        <img src="{{item.pictureUrl}}" alt="{{item.productName}}" class="img-fluid"
+                          style="max-height: 50px;">
                         <div class="ml-3 d-inline-block align-middle">
                           <h5 class="mb-0">
                             <a routerLink="/shop/{{item.id}}" class="text-dark">{{item.productName}}</a>
@@ -64,12 +66,17 @@
             </div>
           </div>
         </div>
+        <!--14.154.4 Adding the html ->basket.service.ts -->
+        <div class="row">
+          <div class="col-6 offset-6">
+            <app-order-totals>
+            </app-order-totals>
+            <a routerLink="/checkout" class="btn btn-outline-primary py-2 btn-block">
+              Proceed to checkout
+            </a>
+          </div>
+        </div>
       </div>
     </div>
-    <ul>
-      <li *ngFor="let item of (basket$ | async).items">
-        {{item.productName}} - {{item.quantity}}
-      </li>
-    </ul>
   </div>
 </div>
