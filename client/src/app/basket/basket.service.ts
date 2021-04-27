@@ -98,7 +98,7 @@ export class BasketService {
   }
   //#endregion
 
-  //#region 14.155 Incrementing quantity of the items, decrement and delete ->
+  //#region 14.155 Incrementing quantity of the items, decrement and delete ->basket.component.ts
   incrementItemQuantity(item: IBasketItem) {
     const basket = this.getCurrentBasketValue();
     const foundItemIndex = basket.items.findIndex(x => x.id === item.id);
