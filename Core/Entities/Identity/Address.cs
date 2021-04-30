@@ -6,7 +6,7 @@ namespace Core.Entities.Identity
 {
     public class Address
     {
-        // 15.162.1 Add properties for address ->
+        // 15.162.1 Add properties for address -> AppIdentityDbContext
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

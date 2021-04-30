@@ -8,6 +8,7 @@ using API.Helpers;
 using API.Middleware;
 using Core.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -57,6 +58,10 @@ namespace API
             // Add migration after and update database and db update
             // Add PAckage Microsoft.EntityFrameworkCore.Design
             services.AddDbContext<StoreContext>(x => x.UseSqlServer(_config.GetConnectionString("DefaultConnection")));
+            #endregion
+
+            #region 15.163.1 Add context as a service -> appSettings.development.json
+            services.AddDbContext<AppIdentityDbContext>(x => x.UseSqlServer(_config.GetConnectionString("IdentityConnection")));
             #endregion
 
             #region 13.135.1 Add Redis as singleton -> appsettings.development.json
