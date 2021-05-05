@@ -19,7 +19,7 @@ namespace API.Controllers
             _context = context;
         }
 
-        #region 15.172.2 Method for getting the secret text ->
+        #region 15.172.2 Method for getting the secret text -> appsettings.development.json -> IdentityServiceExtensions
         [HttpGet("testauth")]
         [Authorize]
         public ActionResult<string> GetSecretText()
