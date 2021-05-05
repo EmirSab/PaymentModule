@@ -1,5 +1,6 @@
 ﻿using API.Errors;
 using Infrastructure.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,16 @@ namespace API.Controllers
         {
             _context = context;
         }
+
+        #region 15.172.2 Method for getting the secret text ->
+        [HttpGet("testauth")]
+        [Authorize]
+        public ActionResult<string> GetSecretText()
+        {
+            return "secret stuff";
+        }
+        #endregion
+
 
         [HttpGet("notfound")]
         public ActionResult GetNotFoundRequest()

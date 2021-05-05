@@ -1,6 +1,7 @@
 ﻿using API.Errors;
 using Core.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -12,9 +13,12 @@ namespace API.Extensions
 {
     public static class ApplicationServicesExtensions
     {
-        #region 5.56 Add Etencion for repository service ->Staartup.cs
+        #region 5.56 Add Extensions for repository service ->Staartup.cs
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+            #region 15.172 Adding token service -> AccountController
+            services.AddScoped<ITokenService, TokenService>();
+            #endregion
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
 

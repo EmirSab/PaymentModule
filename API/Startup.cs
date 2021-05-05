@@ -91,6 +91,11 @@ namespace API
             services.AddApplicationServices();
             #endregion
 
+            #region 15.166.1 Add identity extension to startup.cs -> Program.cs
+            // 15.171.1 Add config to startup -> appsettings.development.json
+            services.AddIdentityServices(_config);
+            #endregion
+
             #region 5.54 Add Swagger config -> ErrorController
             /*services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "SkiNet API", Version="v1" });
@@ -137,6 +142,9 @@ namespace API
             #region 6.67
             app.UseCors("CorsPolicy");
             #endregion
+            // 15.171.3 Add authentication to app -> AplicationServiceExtensions
+            app.UseAuthentication();
+
             app.UseAuthorization();
 
             #region 5.54 Add Swagger config
