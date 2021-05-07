@@ -32,7 +32,7 @@ namespace API.Extensions
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Token:Key"])),
                     ValidIssuer = config["Token:Issuer"],
                     ValidateIssuer = true,
-                    // 15.173.1 Validation of the audience ->
+                    // 15.173.1 Validation of the audience(person that gets the token) -> AccountController
                     ValidateAudience = false
                 };
             });
