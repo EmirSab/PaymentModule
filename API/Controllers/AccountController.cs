@@ -70,7 +70,7 @@ namespace API.Controllers
         }
         #endregion
 
-        #region 15.176.2 Adding dto to the controller and adding method to update the address
+        #region 15.176.2 Adding dto to the controller and adding method to update the address -> AddressDto
         [Authorize]
         [HttpPut("address")]
         public async Task<ActionResult> UpdateUserAddress(AddressDto address)
@@ -116,6 +116,11 @@ namespace API.Controllers
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
             #region 15.169.2 Add rest of the logic for register -> ITokenService
+            // 16.181.1 Add code to check the email -> CustomerBasketDto
+            if (CheckEmailExistsAsync(registerDto.Email).Result.Value)
+            {
+                return new BadRequestObjectResult(new ApiValidationErrorResponse { Errors = new[] { "Email address is in use" } });
+            }
             var user = new AppUser
             { 
                 DisplayName = registerDto.DisplayName,

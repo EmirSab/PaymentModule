@@ -20,6 +20,11 @@ namespace API.Helpers
             #region 15.176.1 Map AddressDto to Address -> AccountController
             CreateMap<Address, AddressDto>().ReverseMap();
             #endregion
+
+            #region 16.168.2 Mapping classes to the dto -> BasketController
+            CreateMap<CustomerBasketDto, CustomerBasket>();
+            CreateMap<BasketItemDto, BasketItem>();
+            #endregion
         }
     }
     #endregion
