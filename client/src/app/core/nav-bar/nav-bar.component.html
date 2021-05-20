@@ -1,26 +1,36 @@
 <!--8.78 Add navbar html -> css-->
 <div class="d-flex flex-column flex-md-row align-items-center justify-content-between p-3 
 px-md-4 mb-3 bg-white border-bottom shadow-sm fixed">
-    <img src="/assets/images/logo.png" style="max-height: 70px;" alt="logo" routerLink="/" class="logo">
-    <nav class="my-2 my-md-0 mr-md-3 text-uppercase" style="font-size: larger;">
-      <!--10.109 add tags for components -> product-item.html
+  <img src="/assets/images/logo.png" style="max-height: 70px;" alt="logo" routerLink="/" class="logo">
+  <nav class="my-2 my-md-0 mr-md-3 text-uppercase" style="font-size: larger;">
+    <!--10.109 add tags for components -> product-item.html
           10.110.1 link is active when its a match so it does not activate both ->nav-bar.css
       -->
-      <a class="p-2" [routerLink]="['/']" routerLinkActive="active"
-          [routerLinkActiveOptions]="{exact: true}">Home</a>
-      <a class="p-2" routerLink="/shop" routerLinkActive="active">Shop</a>
-      <!--11.116.2 Add html for errors ->test-error.ts-->
-      <a class="p-2" routerLink="/test-error" routerLinkActive="active">Errors</a>
-    </nav>
-    <div class="d-flex align-items-center">
-        <!--14.144.3 Add tag to test the module -> basket.ts-->
-        <a routerLink="/basket" class="position-relative">
-            <!--14.151.1 Displaying actual number of ites -> basket.component.ts -->
-            <i class="fa fa-shopping-cart fa-2x mr-5 text-dark"></i>
-            <div *ngIf="(basket$ | async) as basket" class="cart-no">{{basket.items.length}}</div>
-        </a>
-        <a class="btn btn-outline-secondary mr-2">Login</a>
-        <a class="btn btn-outline-secondary mr-3">Sign up</a>
-    </div>
+    <a class="p-2" [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+    <a class="p-2" routerLink="/shop" routerLinkActive="active">Shop</a>
+    <!--11.116.2 Add html for errors ->test-error.ts-->
+    <a class="p-2" routerLink="/test-error" routerLinkActive="active">Errors</a>
+  </nav>
+  <div class="d-flex align-items-center">
+    <!--14.144.3 Add tag to test the module -> basket.ts-->
+    <a routerLink="/basket" class="position-relative">
+      <!--14.151.1 Displaying actual number of ites -> basket.component.ts -->
+      <i class="fa fa-shopping-cart fa-2x mr-5 text-dark"></i>
+      <!--17.192.1 Add user to the html ->-->
+      <div *ngIf="(basket$ | async)" class="cart-no">{{(basket$ | async).items.length}}</div>
+    </a>
+    <!--17.192.1-->
+    <ng-container *ngIf="(currentUser$ | async) === null">
+      <!--17.186.3 Adding html routes -> user.ts-->
+      <a routerLink="/account/login" class="btn btn-outline-secondary mr-2">Login</a>
+      <a routerLink="/account/register" class="btn btn-outline-secondary mr-3">Sign up</a>
+    </ng-container>
 
+    <!--17.192.1-->
+    <ng-container *ngIf="currentUser$ | async">
+    <a href="#">Welcome {{(currentUser$ | async).displayName}}</a>
+
+    </ng-container>
   </div>
+
+</div>
