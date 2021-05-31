@@ -25,4 +25,10 @@ export class NavBarComponent implements OnInit {
     this.currentUser$ = this.accountService.currentUser$;
   }
 
+  //#region 17.194.3 Add logout() -> login.component.ts
+  logout() {
+    this.accountService.logout();
+  }
+  //#endregion
+
 }

@@ -16,7 +16,7 @@ export class AppComponent implements OnInit{
  // 14.150 Getting the basket if there is one getting the basket service -> nav-bar.ts
   constructor(private basketService: BasketService, private accountService: AccountService) {}
 
-  //#region 17.193.1 Add part for loading the user ->
+  //#region 17.193.1 Add part for loading the user -> shared.module.ts
   ngOnInit(): void {
     this.loadBasket();
     this.loadCurrentUser();
