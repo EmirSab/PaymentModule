@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from '../account.service';
 
 @Component({
@@ -11,10 +11,14 @@ import { AccountService } from '../account.service';
 export class LoginComponent implements OnInit {
   //#region  17.190.2 Adding form -> login.component.html
   loginForm: FormGroup;
-
-  constructor(private accountService: AccountService, private router: Router) { }
+  // 17.203.2 Adding property for the return url for authguard, and accessing query params -> account.service.ts
+  returnUrl: string;
+  constructor(private accountService: AccountService, private router: Router,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+     // 17.203.2
+     this.returnUrl = this.activatedRoute.snapshot.queryParams.returnUrl || '/shop';
     this.createLoginForm();
   }
   createLoginForm() {
@@ -30,7 +34,7 @@ export class LoginComponent implements OnInit {
     //17.191 Sending data to server -> nav-bar.component.ts
     this.accountService.login(this.loginForm.value).subscribe(() => {
       //17.194.4 Sending user to shop component after login -> nav-bar.component.html
-      this.router.navigateByUrl('/shop');
+      this.router.navigateByUrl(this.returnUrl);
       //console.log("User is logged in");
     }, error => {
       console.log(error);

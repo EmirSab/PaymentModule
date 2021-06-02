@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, of, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IUser } from '../shared/models/user';
@@ -12,12 +12,21 @@ import { IUser } from '../shared/models/user';
 export class AccountService {
 //#region 17.187 Creating login ->login.component.html
 baseUrl = environment.apiUrl;
-private currentUserSource = new BehaviorSubject<IUser>(null);
+//17.204 Changing the type of observable to ReplaySubject -> app.component.ts
+private currentUserSource = new ReplaySubject<IUser>(1);
 currentUser$ = this.currentUserSource.asObservable();
   constructor(private http: HttpClient, private router: Router) { }
 
+  
   //#region 17.193 Keeping the user loggedin -> app.component.ts
   loadCurrentUser(token: string) {
+    //#region 17.204.2 Check for the presence of the token ->
+    if(token === null) {
+      this.currentUserSource.next(null);
+      return of(null);
+    }
+    //#endregion
+
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', `Bearer ${token}`);
 
