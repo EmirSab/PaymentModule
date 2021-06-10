@@ -7,6 +7,10 @@ namespace Core.Entities.OrderAggregate
     #region 18.208 Adding order class that will agreate all above classes, adding properties -> OrderConfiguration.cs
     public class Order : BaseEntity
     {
+        public Order()
+        {
+            
+        }
         public Order(IReadOnlyList<OrderItem> orderItems, string buyerEmail, Address shipToAddress, DeliveryMethod deliveryMethod, decimal subtotal)
         {
             BuyerEmail = buyerEmail;

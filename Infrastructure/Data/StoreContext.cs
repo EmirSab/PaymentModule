@@ -1,5 +1,6 @@
 using System.Reflection;
 using Core.Entities;
+using Core.Entities.OrderAggregate;
 using Microsoft.EntityFrameworkCore;
 namespace Infrastructure.Data
 {
@@ -18,6 +19,12 @@ namespace Infrastructure.Data
         public DbSet<ProductBrand> ProductBrands {get; set;}
         public DbSet<ProductType> ProductTypes {get; set;}
 
+        #endregion
+
+        #region 18.210 Adding new classes to context -> StoreContextSeed
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<DeliveryMethod> DeliveryMethods { get; set; }
         #endregion
 
         #region 3.26.1 Adding the product configuration ->Program.cs

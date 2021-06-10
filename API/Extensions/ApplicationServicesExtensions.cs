@@ -19,6 +19,9 @@ namespace API.Extensions
             #region 15.172 Adding token service -> AccountController
             services.AddScoped<ITokenService, TokenService>();
             #endregion
+            #region 18.212.2 Add service to startup -> OrderService
+            services.AddScoped<IOrderService, OrderService>();
+            #endregion
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
 

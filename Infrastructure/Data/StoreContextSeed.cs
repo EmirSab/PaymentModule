@@ -1,10 +1,13 @@
+
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Core.Entities;
+using Core.Entities.OrderAggregate;
 using Microsoft.Extensions.Logging;
 
 namespace Infrastructure.Data
@@ -16,7 +19,8 @@ namespace Infrastructure.Data
         {
             try
             {
-                if(!context.ProductBrands.Any())
+                var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                if (!context.ProductBrands.Any())
                 {
                     var brandsData = File.ReadAllText("../Infrastructure/Data/SeedData/brands.json");
                     var brands = JsonSerializer.Deserialize<List<ProductBrand>>(brandsData);
@@ -52,6 +56,19 @@ namespace Infrastructure.Data
                     }
                      await context.SaveChangesAsync();
                 }
+                #region 18.210.1 Adding some seed data -> IOrderService
+                if (!context.DeliveryMethods.Any())
+                {
+                    var dmData = File.ReadAllText(path + @"/Data/SeedData/delivery.json");
+                    var methods = JsonSerializer.Deserialize<List<DeliveryMethod>>(dmData);
+                    /*C:\Users\Emir\Desktop\Projects\skinet\Infrastructure\Data\SeedData\delivery.json*/
+                    foreach (var item in methods)
+                    {
+                        context.DeliveryMethods.Add(item);
+                    }
+                    await context.SaveChangesAsync();
+                }
+                #endregion
             }
             catch (Exception ex)
             {

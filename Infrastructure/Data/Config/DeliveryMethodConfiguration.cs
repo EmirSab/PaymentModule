@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Infrastructure.Data.Config
 {
-    #region 18.209.2 Configuring delivery method ->
+    #region 18.209.2 Configuring delivery method -> StoreContext.cs
     public class DeliveryMethodConfiguration : IEntityTypeConfiguration<DeliveryMethod>
     {
         public void Configure(EntityTypeBuilder<DeliveryMethod> builder)
