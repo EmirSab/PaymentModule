@@ -25,6 +25,10 @@ namespace API.Helpers
             CreateMap<CustomerBasketDto, CustomerBasket>();
             CreateMap<BasketItemDto, BasketItem>();
             #endregion
+
+            #region 18.214.2 Map the new Dto -> ClaimsPrincipleExtensions
+            CreateMap<AddressDto, Core.Entities.OrderAggregate.Address>();
+            #endregion
         }
     }
     #endregion

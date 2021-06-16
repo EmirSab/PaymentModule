@@ -1,10 +1,15 @@
-﻿using Core.Entities.OrderAggregate;
+﻿using API.Dtos;
+using API.Errors;
+using API.Extensions;
+using AutoMapper;
+using Core.Entities.OrderAggregate;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace API.Controllers
@@ -13,16 +18,33 @@ namespace API.Controllers
     #region 18.214 Add OrdersController  -> OrderDto
     public class OrdersController : BaseApiController
     {
-        public readonly IOrderService _orderService;
-        public OrdersController(IOrderService orderService)
+        private readonly IOrderService _orderService;
+        private readonly IMapper _mapper;
+        public OrdersController(IOrderService orderService, IMapper mapper)
         {
             _orderService = orderService;
+            _mapper = mapper;
         }
-
+        [HttpGet("testauth")]
+        public ActionResult<string> GetSecretText()
+        {
+            return "secret stuff";
+        }
         [HttpPost]
         public async Task<ActionResult<Order>> CreateOrder(OrderDto orderDto)
-        { 
-        
+        {
+            // buyers email
+            #region -> 18.214.4 Get email from extension method-> >IUnitOfWork.cs
+            var email = HttpContext.User.RetrieveEmailFromPrincipal();
+
+            var address = _mapper.Map<AddressDto, Address>(orderDto.ShipToAddress);
+
+            var order = await _orderService.CreateOrderAsync(email, orderDto.DeliveryMethodId, orderDto.BasketId, address);
+
+            if (order == null) return BadRequest(new ApiResponse(400, "Problem creating order"));
+
+            return Ok();
+            #endregion
         }
     }
     #endregion

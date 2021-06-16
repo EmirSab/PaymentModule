@@ -19,6 +19,12 @@ namespace Core.Interfaces
         #region 6.65.1 Method for counting specification -> GenericRepository
         Task<int> CountAsync(ISpecification<T> spec);
         #endregion
+
+        #region 18.218 Adding rest of the crud methods to repository -> GeericRepository
+        void Add(T entity);
+        void Update(T entity);
+        void Delete(T entity);
+        #endregion
     }
 
     #endregion

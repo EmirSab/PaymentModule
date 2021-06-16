@@ -22,6 +22,11 @@ namespace API.Extensions
             #region 18.212.2 Add service to startup -> OrderService
             services.AddScoped<IOrderService, OrderService>();
             #endregion
+
+            #region 18.217.2 Adding the unit of work -> IGenericRepository
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            #endregion
+
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped(typeof(IGenericRepository<>), (typeof(GenericRepository<>)));
 
