@@ -50,7 +50,7 @@ namespace Infrastructure.Data
             return SpecificationEvaluator<T>.GetQuery(_context.Set<T>().AsQueryable(), spec);
         }
 
-        #region 18.218.1 Implement the new methods ->
+        #region 18.218.1 Implement the new methods -> OrderService
         public void Add(T entity)
         {
             _context.Set<T>().Add(entity);
