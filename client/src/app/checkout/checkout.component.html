@@ -1,4 +1,33 @@
 <!--14.158.4 change html ->AppUser-->
 <div class="container mt-5">
-    <h1>Only authorized users can see this</h1>
+    <!--19.229 Adding checkout html elements ->checkout.module
+    19.229.2 Add order totals ->shared.module.ts
+    -->
+    <div class="row">
+        <div class="col-8">
+            <!--19.230.2 Add stepper tag ->stepper.component.ts-->
+            <!--19.232 Add components (ng g c checkout-address --skip-tests, 
+                ng g c checkout-delivery --skip-tests, ng g c checkout-review --skip-tests, 
+                ng g c checkout-payment --skip-tests, 
+                ng g c checkout-success --skip-tests) and add their html to checkout -> checkout.component.ts-->
+            <app-stepper [linearModeSelected]="false" #appStepper>
+                <cdk-step [label]="'Address'" [completed]="(checkoutForm.get('addressForm')).valid">
+                    <app-checkout-address [checkoutForm]="checkoutForm"></app-checkout-address>
+                </cdk-step>
+                <cdk-step [label]="'Delivery'" 
+                    [completed]="(checkoutForm.get('deliveryForm')).valid">
+                <app-checkout-delivery></app-checkout-delivery>
+                </cdk-step>
+                <cdk-step [label]="'Review'">
+                    <app-checkout-review></app-checkout-review>
+                </cdk-step>
+                <cdk-step [label]="'Payment'">
+                    <app-checkout-payment></app-checkout-payment>
+                </cdk-step>
+            </app-stepper>
+        </div>
+        <div class="col-4">
+            <app-order-totals></app-order-totals>
+        </div>
+    </div>
 </div>

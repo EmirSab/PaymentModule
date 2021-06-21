@@ -5,9 +5,11 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { PagingHeaderComponent } from './components/paging-header/paging-header.component';
 import { PagerComponent } from './components/pager/pager.component';
 import { OrderTotalsComponent } from './components/order-totals/order-totals.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TextInputComponent } from './components/text-input/text-input.component';
+import {CdkStepperModule} from '@angular/cdk/stepper';
+import { StepperComponent } from './components/stepper/stepper.component';
 
 // 9.97 Add module for pagination -> shop.module.ts
 //9.101.3 Eksportovati paging header ->shop.html
@@ -18,14 +20,28 @@ import { TextInputComponent } from './components/text-input/text-input.component
 // 17.190 Add reactive module -> account.module.ts
 // 17.194 Add BsDropDownModule in import and export -> core.module.ts
 // 17.197 Create text-input component and export it -> text-input.ts
+// 19.230 Installing cdk stepper (ng add @angular/cdk), create a stepper component, import and export cdk in shared ->
+// 19.230.1 Export stepper component ->checkout.html
 
 @NgModule({
-  declarations: [PagingHeaderComponent, PagerComponent, OrderTotalsComponent, TextInputComponent],
+  declarations: [PagingHeaderComponent, PagerComponent, OrderTotalsComponent, TextInputComponent, StepperComponent],
   imports: [
     CommonModule,
-    PaginationModule.forRoot(), CarouselModule.forRoot(), BsDropdownModule.forRoot(), ReactiveFormsModule
+    PaginationModule.forRoot(), CarouselModule.forRoot(), BsDropdownModule.forRoot(), ReactiveFormsModule, 
+    CdkStepperModule
   ],
-  exports: [PaginationModule, PagingHeaderComponent, PagerComponent, CarouselModule,
-  OrderTotalsComponent, BsDropdownModule, ReactiveFormsModule, TextInputComponent]
+  exports: [
+    PaginationModule, 
+    PagingHeaderComponent, 
+    PagerComponent, 
+    CarouselModule,
+    OrderTotalsComponent,
+    ReactiveFormsModule,
+    FormsModule,
+    BsDropdownModule,  
+    TextInputComponent,
+    CdkStepperModule,
+    StepperComponent
+]
 })
 export class SharedModule { }

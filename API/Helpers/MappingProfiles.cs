@@ -41,7 +41,7 @@ namespace API.Helpers
                 .ForMember(d => d.ProductId, o => o.MapFrom(s => s.ItemOrdered.ProductItemId))
                 .ForMember(d => d.ProductName, o => o.MapFrom(s => s.ItemOrdered.ProductName))
                 .ForMember(d => d.PictureUrl, o => o.MapFrom(s => s.ItemOrdered.PictureUrl))
-                //18.226.1 Adding resolver to mapper ->
+                //18.226.1 Adding resolver to mapper -> checkout.component.html
                 .ForMember(d => d.PictureUrl, o => o.MapFrom<OrderItemUrlResolver>());
 
             #endregion
