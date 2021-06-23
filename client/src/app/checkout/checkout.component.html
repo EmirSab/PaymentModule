@@ -14,10 +14,14 @@
                 <cdk-step [label]="'Address'" [completed]="(checkoutForm.get('addressForm')).valid">
                     <app-checkout-address [checkoutForm]="checkoutForm"></app-checkout-address>
                 </cdk-step>
-                <cdk-step [label]="'Delivery'" 
+                <!--19.236.1 Add checkout-delivery html to component ->jwt.interceptor.ts-->
+                <cdk-step [label]="'Delivery'">
+                    <app-checkout-delivery [checkoutForm]="checkoutForm"></app-checkout-delivery>
+                </cdk-step>
+                <!--<cdk-step [label]="'Delivery'" 
                     [completed]="(checkoutForm.get('deliveryForm')).valid">
                 <app-checkout-delivery></app-checkout-delivery>
-                </cdk-step>
+                </cdk-step>-->
                 <cdk-step [label]="'Review'">
                     <app-checkout-review></app-checkout-review>
                 </cdk-step>
