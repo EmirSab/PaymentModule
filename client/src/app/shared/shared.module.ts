@@ -10,6 +10,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TextInputComponent } from './components/text-input/text-input.component';
 import {CdkStepperModule} from '@angular/cdk/stepper';
 import { StepperComponent } from './components/stepper/stepper.component';
+import { BasketSummaryComponent } from './components/basket-summary/basket-summary.component';
+import { RouterModule } from '@angular/router';
 
 // 9.97 Add module for pagination -> shop.module.ts
 //9.101.3 Eksportovati paging header ->shop.html
@@ -22,13 +24,15 @@ import { StepperComponent } from './components/stepper/stepper.component';
 // 17.197 Create text-input component and export it -> text-input.ts
 // 19.230 Installing cdk stepper (ng add @angular/cdk), create a stepper component, import and export cdk in shared ->
 // 19.230.1 Export stepper component ->checkout.html
+// 19.238.1 Export basket-summary.component and import RouterModule -> basket-summary.component.ts
 
 @NgModule({
-  declarations: [PagingHeaderComponent, PagerComponent, OrderTotalsComponent, TextInputComponent, StepperComponent],
+  declarations: [PagingHeaderComponent, PagerComponent, OrderTotalsComponent, TextInputComponent, StepperComponent, BasketSummaryComponent],
   imports: [
     CommonModule,
     PaginationModule.forRoot(), CarouselModule.forRoot(), BsDropdownModule.forRoot(), ReactiveFormsModule, 
-    CdkStepperModule
+    CdkStepperModule,
+    RouterModule
   ],
   exports: [
     PaginationModule, 
@@ -41,7 +45,8 @@ import { StepperComponent } from './components/stepper/stepper.component';
     BsDropdownModule,  
     TextInputComponent,
     CdkStepperModule,
-    StepperComponent
+    StepperComponent,
+    BasketSummaryComponent
 ]
 })
 export class SharedModule { }
