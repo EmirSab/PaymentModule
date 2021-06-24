@@ -20,6 +20,7 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.createCheckoutForm();
+    // 19.242.1
     this.getAddressFormValues();
   }
 
@@ -41,7 +42,9 @@ export class CheckoutComponent implements OnInit {
       })
     });
   }
+  //#endregion
 
+  //#region 19.242.1 Getting the values of addressForm -> checkout-address.component.ts
   getAddressFormValues() {
     this.accountService.getUserAddress().subscribe(address => {
       if (address) {
@@ -52,5 +55,4 @@ export class CheckoutComponent implements OnInit {
     });
   }
   //#endregion
-
 }

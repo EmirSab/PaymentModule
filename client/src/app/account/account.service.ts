@@ -74,11 +74,14 @@ currentUser$ = this.currentUserSource.asObservable();
   }
   //#endregion
 
+  //#region 19.242 Getting the user address -> checkout.component.ts
   getUserAddress() {
     return this.http.get<IAddress>(this.baseUrl + 'account/address');
   }
 
+  
   updateUserAddress(address: IAddress) {
     return this.http.put<IAddress>(this.baseUrl + 'account/address', address);
   }
+  //#endregion
 }

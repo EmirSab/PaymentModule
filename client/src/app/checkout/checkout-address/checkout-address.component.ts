@@ -15,6 +15,7 @@ export class CheckoutAddressComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  //#region 19.243 Updating user address -> basket.service.ts
   saveUserAddress() {
     this.accountService.updateUserAddress(this.checkoutForm.get('addressForm').value)
       .subscribe(() => {
@@ -24,4 +25,5 @@ export class CheckoutAddressComponent implements OnInit {
         console.log(error);
       });
   }
+  //#endregion
 }

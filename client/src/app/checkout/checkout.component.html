@@ -9,13 +9,16 @@
             <!--19.232 Add components (ng g c checkout-address --skip-tests, 
                 ng g c checkout-delivery --skip-tests, ng g c checkout-review --skip-tests, 
                 ng g c checkout-payment --skip-tests, 
-                ng g c checkout-success --skip-tests) and add their html to checkout -> checkout.component.ts-->
+                ng g c checkout-success --skip-tests) and add their 
+                html to checkout -> checkout.component.ts-->
             <app-stepper [linearModeSelected]="false" #appStepper>
+                <!--19.241 Using the form status to block the user of 
+                    going to the next form -> account.service.ts-->
                 <cdk-step [label]="'Address'" [completed]="(checkoutForm.get('addressForm')).valid">
                     <app-checkout-address [checkoutForm]="checkoutForm"></app-checkout-address>
                 </cdk-step>
                 <!--19.236.1 Add checkout-delivery html to component ->jwt.interceptor.ts-->
-                <cdk-step [label]="'Delivery'">
+                <cdk-step [label]="'Delivery'" [completed]="(checkoutForm.get('deliveryForm')).valid">
                     <app-checkout-delivery [checkoutForm]="checkoutForm"></app-checkout-delivery>
                 </cdk-step>
                 <!--<cdk-step [label]="'Delivery'" 
