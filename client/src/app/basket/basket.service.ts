@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Basket, IBasket, IBasketItem, IBasketTotals } from '../shared/models/basket';
+import { IDeliveryMethod } from '../shared/models/deliveryMethod';
 import { IProduct } from '../shared/models/product';
 
 @Injectable({
@@ -19,8 +20,17 @@ export class BasketService {
   private basketTotalSource = new BehaviorSubject<IBasketTotals>(null);
   basketTotal$ = this.basketTotalSource.asObservable();
 
+  // 19.244
+  shipping = 0;
+
   constructor(private http: HttpClient) { }
 
+  //#region 19.244 Including the shipping costs into total -> checkout-delivery.component.ts
+  setShippingPrice(deliveryMethod: IDeliveryMethod) {
+    this.shipping = deliveryMethod.price;
+    this.CalculateTotals();
+  }
+  //#endregion
   getBasket(id: string) {
     return this.http.get(this.baseUrl + 'basket?id=' + id).
     pipe(map((basket: IBasket) => {
@@ -91,7 +101,9 @@ export class BasketService {
   //#region 14.153.1 Calculating totals
   private CalculateTotals() {
     const basket = this.getCurrentBasketValue();
-    const shipping = 0;
+    //const shipping = 0;
+    // 19.244 
+    const shipping = this.shipping;
     const subtotal = basket.items.reduce((a, b) => (b.price * b.quantity) + a, 0);
     const total = subtotal + shipping;
     this.basketTotalSource.next({shipping, total, subtotal});
@@ -127,6 +139,14 @@ export class BasketService {
       }
     }
   }
+
+  //	19.246.1 Removing the basket when order is created -> checkout-payment.ts
+  deleteLocalBasket(id: string) {
+    this.basketSource.next(null);
+    this.basketTotalSource.next(null);
+    localStorage.removeItem('basket_id');
+  }
+  
   deleteBasket(basket: IBasket) {
     return this.http.delete(this.baseUrl + 'basket?id=' + basket.id).subscribe(() => {
       this.basketSource.next(null);

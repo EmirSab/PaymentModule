@@ -1,9 +1,13 @@
 //#region 14.146 Add properties to the basket model, install uuid for
 // unique id generation (npm install uuid)-> basket.service.ts
-import { v4 as uuidv4 } from 'uuid';
+import uuid from 'uuid/v4';
 export interface IBasket {
   id: string;
   items: IBasketItem[];
+  clientSecret?: string;
+  paymentIntentId?: string;
+  deliveryMethodId?: number;
+  shippingPrice?: number;
 }
 
 export interface IBasketItem {
@@ -17,15 +21,15 @@ export interface IBasketItem {
 }
 
 export class Basket implements IBasket {
-  id = uuidv4();
+  id = uuid();
   items: IBasketItem[] = [];
 }
 //#endregion
 
 //#region 14.153 Adding the intetface for totals -> basket.service.ts
 export interface IBasketTotals {
-  shipping: number;
-  subtotal: number;
-  total: number;
+    shipping: number;
+    subtotal: number;
+    total: number;
 }
 //#endregion
