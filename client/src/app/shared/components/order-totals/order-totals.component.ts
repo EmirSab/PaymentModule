@@ -1,5 +1,5 @@
 import { ThrowStmt } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BasketService } from 'src/app/basket/basket.service';
 import { IBasketTotals } from '../../models/basket';
@@ -12,11 +12,17 @@ import { IBasketTotals } from '../../models/basket';
 export class OrderTotalsComponent implements OnInit {
 
   // 14.154 Create new component ng g c order-totals --skip-tests, geting the totals -> order-totals.html
-  basketTotal$: Observable<IBasketTotals>;
-  constructor(private basketService: BasketService) { }
+  //basketTotal$: Observable<IBasketTotals>;
+
+  //#region 20.253.4 Add shippingprice, subtotal and total -> order-totals.html
+  @Input() shippingPrice: number;
+  @Input() subtotal: number;
+  @Input() total: number;
+  //#endregion
+  constructor() { }
 
   ngOnInit(): void {
-    this.basketTotal$ = this.basketService.basketTotal$;
+    //this.basketTotal$ = this.basketService.basketTotal$;
   }
 
 }

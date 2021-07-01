@@ -14,7 +14,7 @@ export class CheckoutSuccessComponent implements OnInit {
     //#region 19.248.2 Add logic for the success component -> checkout-routing.module
     const navigation = this.router.getCurrentNavigation();
     const state = navigation && navigation.extras && navigation.extras.state;
-    if(state) {
+    if (state) {
       this.order = state as IOrder;
     }
     //#endregion

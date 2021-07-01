@@ -1,5 +1,5 @@
 <!--14.151.3 Add html to show items -> basket.ts-->
-<div class="container mt-5">
+<div class="container mt-2">
   <div *ngIf="(basket$ | async) === null">
     <p>There are no items in your basket</p>
   </div>
@@ -11,24 +11,22 @@
           <div class="col-12 py-5 mb-1">
             <!--19.238.3 Add basket-summary tags (additional code is for what methods will call inside
               basket component)-> checkout-review.component.html-->
-            <app-basket-summary
-            (decrement)="decrementItemQuantity($event)"
-            (increment)="incrementItemQuantity($event)"
-            (remove)="removeBasketItem($event)"
-            [items]="(basket$ | async).items"
-            ></app-basket-summary>
+              <app-basket-summary 
+              (decrement)="decrementItemQuantity($event)"
+              (increment)="incrementItemQuantity($event)"
+              (remove)="removeBasketItem($event)"
+              [items]="(basket$ | async).items"></app-basket-summary>
           </div>
         </div>
         <!--14.154.4 Adding the html ->basket.service.ts -->
         <div class="row">
           <div class="col-6 offset-6">
-            <app-order-totals
+            <app-order-totals 
             *ngIf="(basketTotals$ | async)"
             [shippingPrice]="(basketTotals$ | async).shipping"
             [subtotal]="(basketTotals$ | async).subtotal" 
             [total]="(basketTotals$ | async).total">
-            >
-            </app-order-totals>
+        </app-order-totals>
             <!--14.158.3 add chechout to html ->checkout.html-->
             <a routerLink="/checkout" class="btn btn-outline-primary py-2 btn-block">
               Proceed to checkout

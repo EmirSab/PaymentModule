@@ -7,7 +7,7 @@ import { CheckoutSuccessComponent } from './checkout-success/checkout-success.co
 // 14.158 Add checkout component and its modules and add routes -> checkout.module.ts
 const routes: Routes = [
   {path: '', component: CheckoutComponent},
-  //19.248.3 Add route for success page ->
+  //19.248.3 Add route for success page -> basket-summary.ts
   {path: 'success', component: CheckoutSuccessComponent}
 ];
 

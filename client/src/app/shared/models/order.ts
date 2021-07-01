@@ -14,13 +14,13 @@ export interface IOrder {
     shipToAddress: IAddress;
     deliveryMethod: string;
     shippingPrice: number;
-    orderItems: OrderItem[];
+    orderItems: IOrderItem[];
     subtotal: number;
     total: number;
     status: string;
 }
 
-export interface OrderItem {
+export interface IOrderItem {
     productId: number;
     productName: string;
     pictureUrl: string;

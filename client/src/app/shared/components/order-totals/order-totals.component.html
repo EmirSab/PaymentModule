@@ -1,21 +1,29 @@
 <!--14.154.1 Adding html to see total -> shared.module.ts-->
-<div class="bg-light px-4 py-3 text-uppercase font-weight-bold">
+<div class="bg-light px-4 text-uppercase font-weight-bold" style="padding: 1.2em;">
     Order Summary
 </div>
 <div class="p-4">
     <p class="font-italic mb-4"> Shipping cost will be added depending on choices made during the checkout</p>
-    <ul class="list-unstyled mb-4" *ngIf="(basketTotal$ | async)">
+    <!--20.253.5-->
+    <ul class="list-unstyled mb-4">
+    <!--<ul class="list-unstyled mb-4" *ngIf="(basketTotal$ | async)">-->
         <li class="d-flex justify-content-between py-3 border-bottom">
             <strong  class="text-muted">Order subtotal</strong>
-            <strong>{{(basketTotal$ | async).subtotal  | currency}}</strong>
+            <!--<strong>{{(basketTotal$ | async).subtotal  | currency}}</strong>-->
+            <!--20.253.5 Adding new vars into html ->checkout-component.html-->
+            <strong>{{subtotal  | currency}}</strong>
         </li>
         <li class="d-flex justify-content-between py-3 border-bottom">
             <strong  class="text-muted">Shipping and handeling</strong>
-            <strong>{{(basketTotal$ | async).shipping | currency}}</strong>
+           <!-- <strong>{{(basketTotal$ | async).shipping | currency}}</strong>-->
+            <!--20.253.5-->
+            <strong>{{shippingPrice | currency}}</strong>
         </li>
         <li class="d-flex justify-content-between py-3 border-bottom">
             <strong  class="text-muted">Total</strong>
-            <strong>{{(basketTotal$ | async).total | currency}}</strong>
+            <!--<strong>{{(basketTotal$ | async).total | currency}}</strong>-->
+            <!--20.253.5-->
+            <strong>{{total | currency}}</strong>
         </li>
     </ul>
 </div>
