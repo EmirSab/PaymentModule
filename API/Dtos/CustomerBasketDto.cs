@@ -15,5 +15,11 @@ namespace API.Dtos
 
         public List<BasketItemDto> Items { get; set; }
         #endregion
+
+        #region 21.261.1 Update CustomerBasketDto with new properties -> PaymentsController
+        public int? DeliveryMethodId { get; set; }
+        public string ClientSecret { get; set; }
+        public string PaymentIntentId { get; set; }
+        #endregion
     }
 }

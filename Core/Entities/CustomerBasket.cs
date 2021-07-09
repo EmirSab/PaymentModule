@@ -19,5 +19,11 @@ namespace Core.Entities
         public string Id { get; set; }
         public List<BasketItem> Items { get; set; } = new List<BasketItem>();
         #endregion
+
+        #region 21.260.1 Adding more properties to get delivery method id -> PaymentService.cs
+        public int? DeliveryMethodId { get; set; }
+        public string ClientSecret { get; set; }
+        public string PaymentIntentId { get; set; }
+        #endregion
     }
 }
