@@ -19,7 +19,7 @@ namespace API.Controllers
         [HttpPost("{basketId}")]
         public async Task<ActionResult<CustomerBasket>> CreateOrUpdatePaymentIntent(string basketId)
         {
-            // 21.261.2 Finish the method ->
+            // 21.261.2 Finish the method -> basket.ts
             return await _paymentService.CreateOrUpdatePaymentIntent(basketId);
         }
         #endregion

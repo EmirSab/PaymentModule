@@ -25,10 +25,28 @@ export class BasketService {
 
   constructor(private http: HttpClient) { }
 
+  //#region 21.263 Adding payment intent -> checkout.review.component.ts
+  createPaymentIntent() {
+    return this.http.post(this.baseUrl + 'payments/' + this.getCurrentBasketValue().id, {}).
+    pipe(
+      map((basket: IBasket) => {
+        this.basketSource.next(basket);
+        console.log(this.getCurrentBasketValue());
+      })
+    )
+  }
+  //#endregion
+
   //#region 19.244 Including the shipping costs into total -> checkout-delivery.component.ts
   setShippingPrice(deliveryMethod: IDeliveryMethod) {
     this.shipping = deliveryMethod.price;
+    //#region 21.262.1 Updating the basket when selecting the shipping option -> checkout.component.ts
+    const basket = this.getCurrentBasketValue();
+    basket.deliveryMethodId = deliveryMethod.id;
+    //#endregion
     this.CalculateTotals();
+    //21.262.1
+    this.setBasket(basket);
   }
   //#endregion
   getBasket(id: string) {

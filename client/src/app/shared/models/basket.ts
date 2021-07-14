@@ -4,9 +4,11 @@ import uuid from 'uuid/v4';
 export interface IBasket {
   id: string;
   items: IBasketItem[];
+  //#region 21.262 Adding delivery method when page is refreshed or user is gone from the form -> basket.service.ts
   clientSecret?: string;
   paymentIntentId?: string;
   deliveryMethodId?: number;
+  //#endregion
   shippingPrice?: number;
 }
 
