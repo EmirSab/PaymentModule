@@ -25,5 +25,9 @@ namespace Core.Entities
         public string ClientSecret { get; set; }
         public string PaymentIntentId { get; set; }
         #endregion
+
+        #region 21.264.1 Add shipping price -> CustomerBasketDto
+        public decimal ShippingPrice { get; set; }
+        #endregion
     }
 }

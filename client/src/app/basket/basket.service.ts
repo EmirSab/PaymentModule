@@ -44,6 +44,10 @@ export class BasketService {
     const basket = this.getCurrentBasketValue();
     basket.deliveryMethodId = deliveryMethod.id;
     //#endregion
+
+    //#region 21.264.3
+    basket.shippingPrice = deliveryMethod.price;
+    //#endregion
     this.CalculateTotals();
     //21.262.1
     this.setBasket(basket);
@@ -53,6 +57,9 @@ export class BasketService {
     return this.http.get(this.baseUrl + 'basket?id=' + id).
     pipe(map((basket: IBasket) => {
       this.basketSource.next(basket);
+      //#region 21.264.3 Add shipping price to service -> index.html
+      this.shipping = basket.shippingPrice;
+      //#endregion
       //14.153.1
       this.CalculateTotals();
     }));

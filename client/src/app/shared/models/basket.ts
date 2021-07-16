@@ -9,7 +9,10 @@ export interface IBasket {
   paymentIntentId?: string;
   deliveryMethodId?: number;
   //#endregion
+
+  //#region 21.264 Add shipping price to be included when page is refreshed -> CustomerBasket.cs
   shippingPrice?: number;
+  //#endregion
 }
 
 export interface IBasketItem {

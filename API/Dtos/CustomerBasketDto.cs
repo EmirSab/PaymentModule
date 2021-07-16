@@ -21,5 +21,8 @@ namespace API.Dtos
         public string ClientSecret { get; set; }
         public string PaymentIntentId { get; set; }
         #endregion
+
+        // 21.264.2 Add shipping price to dto -> basket.service.ts
+        public decimal ShippingPrice { get; set; }
     }
 }
