@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using API.Errors;
 using Core.Entities;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -20,7 +21,14 @@ namespace API.Controllers
         public async Task<ActionResult<CustomerBasket>> CreateOrUpdatePaymentIntent(string basketId)
         {
             // 21.261.2 Finish the method -> basket.ts
-            return await _paymentService.CreateOrUpdatePaymentIntent(basketId);
+            // return await _paymentService.CreateOrUpdatePaymentIntent(basketId);
+            #region 21.271.5 Displaying the error if there is no basket ->
+            var basket = await _paymentService.CreateOrUpdatePaymentIntent(basketId);
+
+            if (basket == null) return BadRequest(new ApiResponse(400, "Problem with your basket"));
+
+            return basket;
+            #endregion
         }
         #endregion
     }

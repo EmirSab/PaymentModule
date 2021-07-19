@@ -30,10 +30,13 @@ namespace Infrastructure.Services
         #region 18.219 Adding Unit of work to order service ->
         private readonly IBasketRepository _basketRepo;
         private readonly IUnitOfWork _unitOfWork;
-        public OrderService(IBasketRepository basketRepo, IUnitOfWork unitOfWork)
+        private readonly IPaymentService _paymentService;
+
+        public OrderService(IBasketRepository basketRepo, IUnitOfWork unitOfWork, IPaymentService paymentService)
         {
             _basketRepo = basketRepo;
             _unitOfWork = unitOfWork;
+            _paymentService = paymentService;
         }
         #endregion
         public async Task<Order> CreateOrderAsync(string buyerEmail, int deliveryMethodId, string basketId, Address shippingAddress)
@@ -58,8 +61,21 @@ namespace Infrastructure.Services
             // calculate subtotal
             var subtotal = items.Sum(item => item.Price * item.Quantity);
 
+            #region 21.271.3 Checking if there is existing order -> PaymentService
+            var spec = new OrderByPaymentIntentIdWithItemsSpecification(basket.PaymentIntentId);
+            var existingOrder = await _unitOfWork.Repository<Order>().GetEntityWithSpec(spec);
+
+            // if payment failed deleting the previous order and creating a new one
+            if (existingOrder != null)
+            {
+                _unitOfWork.Repository<Order>().Delete(existingOrder);
+                await _paymentService.CreateOrUpdatePaymentIntent(basket.PaymentIntentId);
+            }
+            #endregion
+
             //create order
-            var order = new Order(items,buyerEmail, shippingAddress, devliveryMethod, subtotal);
+            // 21.270.1 Add paymentIntentId ->OrderByPaymentIntentIdWithItemsSpecification
+            var order = new Order(items,buyerEmail, shippingAddress, devliveryMethod, subtotal, basket.PaymentIntentId);
 
             #region 18.219 
             _unitOfWork.Repository<Order>().Add(order);
@@ -69,7 +85,7 @@ namespace Infrastructure.Services
             if (result <= 0) return null;
 
             //delete basket
-            await _basketRepo.DeleteBasketAsync(basketId);
+            //await _basketRepo.DeleteBasketAsync(basketId);
 
             #endregion
             //return the order

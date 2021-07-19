@@ -25,8 +25,9 @@
                     [completed]="(checkoutForm.get('deliveryForm')).valid">
                 <app-checkout-delivery></app-checkout-delivery>
                 </cdk-step>-->
+                <!--21.268.1 Add html for stepper -> checkout-payment.component.ts-->
                 <cdk-step [label]="'Review'">
-                    <app-checkout-review></app-checkout-review>
+                    <app-checkout-review [appStepper]="appStepper"></app-checkout-review>
                 </cdk-step>
                 <cdk-step [label]="'Payment'" >
                     <app-checkout-payment [checkoutForm]="checkoutForm"></app-checkout-payment>

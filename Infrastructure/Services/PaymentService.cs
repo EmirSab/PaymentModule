@@ -32,8 +32,12 @@ namespace Infrastructure.Services
 
             var basket = await _basketRepository.GetBasketAsync(basketId);
 
-            #region 21.260.2 Rest of the method -> PaymentsController
+            #region 21.271.4 Checking to see if there is a basket to avoid the exeption -> PaymentController
+            if (basket == null) return null;
 
+            #endregion
+
+            #region 21.260.2 Rest of the method -> PaymentsController
             //getting the shipping option
             var shippingPrice = 0m;
 
