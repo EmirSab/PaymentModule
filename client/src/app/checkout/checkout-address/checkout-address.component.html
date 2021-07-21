@@ -36,7 +36,10 @@
     <button class="btn btn-outline-primary" routerLink="/basket">
         <i class="fa fa-angle-left"></i> Back to Basket
     </button>
-    <button class="btn btn-primary" cdkStepperNext>
+    <!--21.274.1 Disabeling the button -> checkout-delivery.html-->
+    <button [disabled]="checkoutForm.get('addressForm').invalid" 
+    class="btn btn-primary" 
+    cdkStepperNext>
         Go to Delivery <i class="fa fa-angle-right"></i> 
     </button>
 </div>

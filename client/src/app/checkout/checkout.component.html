@@ -11,7 +11,10 @@
                 ng g c checkout-payment --skip-tests, 
                 ng g c checkout-success --skip-tests) and add their 
                 html to checkout -> checkout.component.ts-->
-            <app-stepper [linearModeSelected]="false" #appStepper>
+
+                <!--21.274 Limiting the movoment through the checkout form, 
+                    [linearModeSelected]="true" -> checkout-address.html-->
+            <app-stepper [linearModeSelected]="true" #appStepper>
                 <!--19.241 Using the form status to block the user of 
                     going to the next form -> account.service.ts-->
                 <cdk-step [label]="'Address'" [completed]="(checkoutForm.get('addressForm')).valid">

@@ -15,4 +15,8 @@ button.nav-link {
     &.active:focus {
         outline: none;
     }
+    /*21.274.5 Adding css to improve the letters on the component ->*/
+    &:disabled:not(.active) {
+        color: #333;
+    }
 }

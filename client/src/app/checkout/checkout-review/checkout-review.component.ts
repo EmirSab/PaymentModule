@@ -25,12 +25,12 @@ export class CheckoutReviewComponent implements OnInit {
   //#region 21.263.1 Adding the functionality for payment intent -> checkout-review.component.html
   createPaymentIntent() {
     return this.basketService.createPaymentIntent().subscribe((response: any) => {
-      this.toastr.success('Payment intent created');
+      // this.toastr.success('Payment intent created');
       // 21.268 Adding stepper -> checkout.component.html
       this.appStepper.next();
     }, error => {
       console.log(error);
-      this.toastr.error(error.message);
+      //this.toastr.error(error.message);
     })
   }
   //#endregion

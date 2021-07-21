@@ -22,7 +22,7 @@ namespace API.Controllers
         {
             // 21.261.2 Finish the method -> basket.ts
             // return await _paymentService.CreateOrUpdatePaymentIntent(basketId);
-            #region 21.271.5 Displaying the error if there is no basket ->
+            #region 21.271.5 Displaying the error if there is no basket -> checkout-payment.component.ts
             var basket = await _paymentService.CreateOrUpdatePaymentIntent(basketId);
 
             if (basket == null) return BadRequest(new ApiResponse(400, "Problem with your basket"));
