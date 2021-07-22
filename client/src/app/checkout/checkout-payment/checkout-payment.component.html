@@ -25,7 +25,9 @@
         <i class="fa fa-angle-left"></i> Back to Review
     </button>
     <!--21.273.1 Disable the button if loading indicator is turned on ->checkout.component.html-->
-    <button [disabled]="loading" class="btn btn-primary" (click)="submitOrder()">
+    <!--21.275 Add validation to the button -> -->
+    <button [disabled]="loading || checkoutForm.get('paymentForm').invalid || !cardNumberValid 
+    || !cardNumberValid || !cardCvcValid" class="btn btn-primary" (click)="submitOrder()">
         Submit Order <i class="fa fa-angle-right"></i>
         <!--21.273.1 adding a spiner-->
         <i *ngIf="loading" class="fa fa-spinner fa-spin"></i>

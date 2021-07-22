@@ -61,8 +61,8 @@ namespace Infrastructure.Services
             // calculate subtotal
             var subtotal = items.Sum(item => item.Price * item.Quantity);
 
-            #region 21.271.3 Checking if there is existing order -> PaymentService
-            var spec = new OrderByPaymentIntentIdWithItemsSpecification(basket.PaymentIntentId);
+            #region 21.271.3 Checking if there is exist ing order -> PaymentService
+            var spec = new OrderByPaymentIntentIdSpecification(basket.PaymentIntentId);
             var existingOrder = await _unitOfWork.Repository<Order>().GetEntityWithSpec(spec);
 
             // if payment failed deleting the previous order and creating a new one

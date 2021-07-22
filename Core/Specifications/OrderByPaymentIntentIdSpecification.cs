@@ -6,9 +6,9 @@ using System.Text;
 namespace Core.Specifications
 {
     #region 21.270.2 Getting the order that matches paymentIntentId -> OrderService
-    public class OrderByPaymentIntentIdWithItemsSpecification : BaseSpecification<Order>
+    public class OrderByPaymentIntentIdSpecification : BaseSpecification<Order>
     {
-        public OrderByPaymentIntentIdWithItemsSpecification(string paymentIntentId) : base(o => o.PaymentIntentId == paymentIntentId) 
+        public OrderByPaymentIntentIdSpecification(string paymentIntentId) : base(o => o.PaymentIntentId == paymentIntentId) 
         {
 
         }

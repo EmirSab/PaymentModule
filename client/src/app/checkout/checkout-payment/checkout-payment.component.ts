@@ -41,8 +41,15 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
   // 21.267 binding to class
   cardHandler = this.onChange.bind(this);
 
-  // 21.272 
+  // 21.272
   loading = false;
+
+  //#region 21.275
+  // using the fields to disable the button until they are true
+  cardNumberValid = false;
+  cardExpiryValid = false;
+  cardCvcValid = false;
+  //#endregion
 
   constructor(
     private basketService: BasketService,
@@ -86,11 +93,31 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
   //#endregion
 
   //#region 21.267 Displaying validation errors beneith the fields -> checkout-payment.html
-  onChange({ error }) {
+  /*onChange({ error }) {
     if (error) {
       this.cardErrors = error.message;
     } else {
       this.cardErrors = null;
+    }
+  }*/
+  // 21.275 Validation of the stripe elements -> checkout-payment.html
+  // for each element we need to chech the status
+  onChange(event) {
+    if (event.error) {
+      this.cardErrors = event.error.message;
+    } else {
+      this.cardErrors = null;
+    }
+    switch (event.elementType) {
+      case 'cardNumber':
+        this.cardNumberValid = event.complete;
+        break;
+      case 'cardExpiry':
+        this.cardExpiryValid = event.complete;
+        break;
+      case 'cardCvc':
+        this.cardCvcValid = event.complete;
+        break;
     }
   }
   //#endregion
@@ -99,7 +126,7 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
   // 21.272 Improving the order submition -> loading.interceptor.ts
   // add async
   async submitOrder() {
-    // 21.272 
+    // 21.272
     this.loading = true;
     const basket = this.basketService.getCurrentBasketValue();
 
@@ -107,8 +134,10 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
       const createdOrder = await this.createOrder(basket);
       const paymentResult = await this.confirmPaymentWithStripe(basket);
       if (paymentResult.paymentIntent) {
-        this.basketService.deleteLocalBasket(basket.id);
-        const navigationExtras: NavigationExtras = {state: createdOrder};
+        //this.basketService.deleteLocalBasket(basket.id);
+        //21.277.2 Deleting the basket -> PaymentsController
+        this.basketService.deleteBasket(basket);
+        const navigationExtras: NavigationExtras = { state: createdOrder };
         this.router.navigate(['checkout/success'], navigationExtras);
       } else {
         this.toastr.error(paymentResult.error.message);
@@ -118,7 +147,6 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
       console.log(error);
       this.loading = false;
     }
-
 
     //const orderToCreate = this.getOrderToCreate(basket);
     /*this.checkoutService.creatOrder(orderToCreate).subscribe(
@@ -160,9 +188,9 @@ export class CheckoutPaymentComponent implements AfterViewInit, OnDestroy {
       payment_method: {
         card: this.cardNumber,
         billing_details: {
-          name: this.checkoutForm.get('paymentForm').get('nameOnCard').value
-        }
-      }
+          name: this.checkoutForm.get('paymentForm').get('nameOnCard').value,
+        },
+      },
     });
   }
 

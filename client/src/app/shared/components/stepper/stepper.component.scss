@@ -15,7 +15,7 @@ button.nav-link {
     &.active:focus {
         outline: none;
     }
-    /*21.274.5 Adding css to improve the letters on the component ->*/
+    /*21.274.5 Adding css to improve the letters on the component -> checkout-payment.ts*/
     &:disabled:not(.active) {
         color: #333;
     }
