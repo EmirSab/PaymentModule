@@ -56,7 +56,7 @@ namespace API.Controllers
                 case "payment_intent.succeeded":
                     intent = (PaymentIntent)stripeEvent.Data.Object;
                     _logger.LogInformation("Payment Succeeded: ", intent.Id);
-                    //21.277.3 Update the status in switch ->
+                    //21.277.3 Update the status in switch -> IResponseCacheService
                     order = await _paymentService.UpdateOrderPaymentSucceeded(intent.Id);
                     _logger.LogInformation("Order updated to payment recived: ", order.Id);
                     break;

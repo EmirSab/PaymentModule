@@ -6,6 +6,7 @@ import { IType } from '../shared/models/productType';
 import { map } from 'rxjs/operators';
 import { ShopParams } from '../shared/models/shopParams';
 import { IProduct } from '../shared/models/product';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,13 @@ export class ShopService {
 
   // 9.88 Add HttpClient and base url ->shop.component.ts
   baseUrl = 'https://localhost:5001/api/';
+
+  //#region 21.283 Addin chache on the frontend ->
+  products: IProduct[] = [];
+  brands: IBrand[] = [];
+  types: IType[] = [];
+  //#endregion
+
   constructor(private http: HttpClient) { }
   // 9.94 Add filter functionality ->shop.componenet.ts
   // 9.96.1 Add the parametar for sort ->shop.component.html
@@ -51,6 +59,8 @@ export class ShopService {
     return this.http.get<IPagination>(this.baseUrl + 'products', {observe: 'response', params})
     .pipe(
       map(response => {
+        // 21.283
+        this.products = response.body.data;
         return response.body;
       })
     );
@@ -58,16 +68,39 @@ export class ShopService {
 
   //#region 9.93.2 Add methods to get types and brands ->shop.component.ts
   getBrands() {
-    return this.http.get<IBrand[]>(this.baseUrl + 'products/brands');
+    // 21.283 
+    if(this.brands.length > 0) {
+      return of(this.brands);
+    }
+    return this.http.get<IBrand[]>(this.baseUrl + 'products/brands').pipe(
+      map(response => {
+        this.brands = response;
+        return response;
+      })
+    );
   }
 
   getTypes() {
-    return this.http.get<IType[]>(this.baseUrl + 'products/types');
+    // 21.283
+    if(this.types.length > 0) {
+      return of(this.types);
+    }
+    return this.http.get<IType[]>(this.baseUrl + 'products/types').pipe(
+      map(response => {
+        this.types = response;
+        return response;
+      })
+    );
   }
   //#endregion
 
   //#region 10.111 get individual product -> product-details.ts
   getProduct(id: number) {
+    // 21.283 
+    const product = this.products.find(p => p.id === id);
+    if (product) {
+      return of(product); // returns observable
+    }
     return this.http.get<IProduct>(this.baseUrl + 'products/' + id);
   }
   //#endregion

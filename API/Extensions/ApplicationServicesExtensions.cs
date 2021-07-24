@@ -16,6 +16,11 @@ namespace API.Extensions
         #region 5.56 Add Extensions for repository service ->Staartup.cs
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
+            #region 22.280.2 Add service -> CachedAttribute
+            //it is not scoped because it need to start with the start of the application
+            services.AddSingleton<IResponseCacheService, ResponseCacheService>();
+            #endregion
+
             #region 15.172 Adding token service -> AccountController
             services.AddScoped<ITokenService, TokenService>();
             #endregion

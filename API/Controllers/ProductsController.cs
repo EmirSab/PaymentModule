@@ -45,6 +45,8 @@ namespace API.Controllers
         // 6.62 Add parametar for search int bradnid, typeid ->ProductsWithTypesAndBrandsSpecification
         // 6.64.1 Change vars in method for ProductSpecParams ->ProductsWithTypesAndBrandsSpecification
         // 6.65.4 Adding pagination ->ProductSpecParams
+        // 21.282 Add cahed attribute to products controller -> shop.service.ts
+        [Cached(600)]
         [HttpGet]
         public async Task<ActionResult<Pagination<ProductToReturnDto>>> GetProducts([FromQuery]ProductSpecParams productParams)
         {
@@ -74,6 +76,7 @@ namespace API.Controllers
             }).ToList();*/
         }
 
+        [Cached(600)]
         // 4.40.1 Modify method ->
         [HttpGet("{id}")]
         //5.55 Two errrors that return ->Extensions/ApplicationServicesExtensions
@@ -104,6 +107,7 @@ namespace API.Controllers
         #endregion
         #endregion
 
+        [Cached(600)]
         #region 3.29.2 Adding methods in controller -> ProductRepository
         // 4.34.1 Prepraviti metode za generic repo ->ISpecification
         [HttpGet("brands")]
@@ -111,7 +115,7 @@ namespace API.Controllers
         {
             return Ok(await _productBrandRepo.ListAllAsync());
         }
-
+        [Cached(600)]
         [HttpGet("types")]
         public async Task<ActionResult<IReadOnlyList<ProductType>>> GetProductTypes()
         {
