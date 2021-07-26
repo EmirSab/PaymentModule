@@ -1,8 +1,10 @@
 <!--9.102.1 add paging html -> pager.component.ts-->
+<!--21.285.4 Add pageNumber to html -> shop.component.html-->
 <pagination 
 [boundaryLinks]="true" 
 [totalItems]="totalCount" 
 (pageChanged)="onPagerChange($event)"
+[ngModel]="pageNumber"
 [itemsPerPage]="pageSize"
 previousText="&lsaquo;" 
 nextText="&rsaquo;"

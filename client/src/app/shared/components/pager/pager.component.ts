@@ -10,6 +10,8 @@ export class PagerComponent implements OnInit {
   //#region  9.102.2 Add properties that are needed -> shop.html
   @Input() totalCount: number;
   @Input() pageSize: number;
+  // 21.285.3 Add pageNumber proptery -> pager.componenet.html
+  @Input() pageNumber: number;
   @Output() pageChanged = new EventEmitter<number>();
   //#endregion
   constructor() { }

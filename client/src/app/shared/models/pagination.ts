@@ -7,4 +7,11 @@ export interface IPagination {
     count: number;
     data: IProduct[];
 }
+// 21.284 Adding properties in order to cache pagination -> shop.service.ts
+export class Pagination implements IPagination {
+    pageIndex: number;
+    pageSize: number;
+    count: number;
+    data: IProduct[] = [];
+}
 //#endregion

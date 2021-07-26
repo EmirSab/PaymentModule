@@ -28,7 +28,9 @@ export class ShopComponent implements OnInit {
   //sortSelected = 'name';
 
   // 9.98.1 add shop params ->shop.service.ts
-  shopParams = new ShopParams();
+  //shopParams = new ShopParams();
+  //21.284.2 Setting the shop params as a type of Shop Params ->
+  shopParams: ShopParams;
   totalCount: number;
   sortOptions = [
     { name: 'Alphabetical', value: 'name' },
@@ -36,21 +38,30 @@ export class ShopComponent implements OnInit {
     { name: 'Price High to Low', value: 'priceDesc' },
   ];
 
-  constructor(private shopService: ShopService) {}
+  constructor(private shopService: ShopService) {
+    //21.284.2
+    this.shopParams = this.shopService.getShopParams();
+  }
 
   ngOnInit(): void {
-    this.getProducts();
+    ////21.285.1  adding true
+    this.getProducts(true);
     this.getBrands();
     this.getTypes();
   }
 
-  getProducts() {
-    this.shopService.getProducts(this.shopParams).subscribe(
-      (response) => {
+  //getProducts() {
+    //21.285.1 Determening what will be cache used for -> shared.module.ts
+    getProducts(useCache = false) {
+    //21.284.2 delete shopParams
+    //this.shopService.getProducts(this.shopParams).subscribe(
+    this.shopService.getProducts(useCache).subscribe(  
+    (response) => {
         this.products = response.data;
         // 9.98.3 dodati shopparams ->shop.html
-        this.shopParams.pageNumber = response.pageIndex;
-        this.shopParams.pageSize = response.pageSize;
+        ////21.284.2 comment shopparams
+        //this.shopParams.pageNumber = response.pageIndex;
+        //this.shopParams.pageSize = response.pageSize;
         this.totalCount = response.count;
       },
       (error) => {
@@ -87,47 +98,84 @@ export class ShopComponent implements OnInit {
   //#region 9.94.1
   //9.98.3 add shopparams in rest of the methods ->
   onBrandSelected(brandId: number) {
-    this.shopParams.brandId = brandId;
+    //#region 21.284.2
+    const params = this.shopService.getShopParams();
+    params.brandId = brandId;
+    params.pageNumber = 1;
+    this.shopService.setShopParams(params);
+    //#endregion
+    //this.shopParams.brandId = brandId;
     // 9.104 resetovanje paga ->onPageChanged()
-    this.shopParams.pageNumber = 1;
+    //this.shopParams.pageNumber = 1;
     this.getProducts();
   }
 
   onTypeSelected(typeId: number) {
-    this.shopParams.typeId = typeId;
+    //#region 21.284.2
+    const params = this.shopService.getShopParams();
+    params.typeId = typeId;
+    params.pageNumber = 1;
+    this.shopService.setShopParams(params);
+    //#endregion
+    //this.shopParams.typeId = typeId;
     // 9.104 resetovanje paga
-    this.shopParams.pageNumber = 1;
+    //this.shopParams.pageNumber = 1;
     this.getProducts();
   }
   //#endregion
 
   //#region 9.96 Add sorting logic
   onSortSelected(sort: string) {
-    this.shopParams.sort = sort;
+    //#region 21.284.2
+        const params = this.shopService.getShopParams();
+    params.sort = sort;
+        this.shopService.setShopParams(params);
+        //#endregion
+    //this.shopParams.sort = sort;
     this.getProducts();
   }
   //#endregion
 
   //#region 9.99.1 add onpagechanged ->shop.component.html
   onPageChanged(event: any) {
+    //#region 21.284.2
+    const params = this.shopService.getShopParams();
+    //#endregion
     // 9.104.1 if in order not to send two api calls when filter is changed ->app.routing.module.ts
-    if (this.shopParams.pageNumber !== event) {
-      this.shopParams.pageNumber = event;
-      this.getProducts();
+    //if (this.shopParams.pageNumber !== event) {
+      //21.284.2
+      if (params.pageNumber !== event) {
+      params.pageNumber = event;
+      this.shopService.setShopParams(params);
+      ////21.285.1 adding true
+      this.getProducts(true);
     }
   }
 
   //#region 9.103.1
   onSearch() {
-    this.shopParams.search = this.searchTerm.nativeElement.value;
+    //this.shopParams.search = this.searchTerm.nativeElement.value;
     // 9.104 resetovanje paga
-    this.shopParams.pageNumber = 1;
+    //this.shopParams.pageNumber = 1;
+    //#region 21.284.2
+    const params = this.shopService.getShopParams();
+    params.search = this.searchTerm.nativeElement.value;
+    params.pageNumber = 1;
+    this.shopService.setShopParams(params);
+    //#endregion
     this.getProducts();
   }
 
   onReset() {
     this.searchTerm.nativeElement.value = '';
+    //this.shopParams = new ShopParams();
+    // 21.284.2 reseting the filters
+    //const params = new ShopParams();
+    //this.shopService.setShopParams(params);
+    //#region 21.285.6 Fixing the reset method to reset types and brands -> shop.component.html
     this.shopParams = new ShopParams();
+    this.shopService.setShopParams(this.shopParams);
+    //#endregion
     this.getProducts();
   }
   //#endregion

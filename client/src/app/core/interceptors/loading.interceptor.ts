@@ -15,6 +15,12 @@ export class LoadingInterceptor implements HttpInterceptor {
             return next.handle(req);
         }
         //#endregion
+
+        //#region 21.286.1 Removing the loader when deleting the order ->
+        if(req.method === 'DELETE') {
+            return next.handle(req);
+        }
+        //#endregion
         //17.202 Adding little loader when checking email
         if(req.url.includes('emailexists')) {
             return next.handle(req);

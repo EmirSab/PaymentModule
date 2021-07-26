@@ -1,0 +1,18 @@
+/*21.286 Adding styling -> loading.interceptor.ts*/
+.list-group-item {
+    cursor: pointer;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.1em;
+    &:focus {
+        outline: none;
+    }
+    &.focus {
+        border-radius: 10px;
+    }
+    &:not(.active):hover {
+        color: #fff;
+        background-color: rgba(233, 86, 32, 0.705);
+        border-radius: 10px;
+    }
+}

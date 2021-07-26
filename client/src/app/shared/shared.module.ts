@@ -25,12 +25,16 @@ import { RouterModule } from '@angular/router';
 // 19.230 Installing cdk stepper (ng add @angular/cdk), create a stepper component, import and export cdk in shared ->
 // 19.230.1 Export stepper component ->checkout.html
 // 19.238.1 Export basket-summary.component and import RouterModule -> basket-summary.component.ts
-
+// 21.285.2 Setting the page to the correct one when 
+// it clicked on the product and then back on the list, import FormsModule -> pager.component.ts
+ 
 @NgModule({
   declarations: [PagingHeaderComponent, PagerComponent, OrderTotalsComponent, TextInputComponent, StepperComponent, BasketSummaryComponent],
   imports: [
     CommonModule,
-    PaginationModule.forRoot(), CarouselModule.forRoot(), BsDropdownModule.forRoot(), ReactiveFormsModule, 
+    PaginationModule.forRoot(), CarouselModule.forRoot(), BsDropdownModule.forRoot(), 
+    ReactiveFormsModule, 
+    FormsModule,
     CdkStepperModule,
     RouterModule
   ],
